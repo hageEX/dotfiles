@@ -42,9 +42,9 @@ call plug#end()
 "| # | プラグイン設定 |
 "|===+================|
 "
-"|----------|
-"| deoplete |
-"|==========|
+"| ------------------- |
+"| deoplete, snippets  |
+"| =================== |
 let g:python3_host_prog = '/Users/user/miniconda3/bin/python3'
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_delay = 0
@@ -57,13 +57,30 @@ let g:deoplete#file#enable_buffer_path = 1
 let g:deoplete#max_list = 10000
 imap <expr><CR> neosnippet#expandable() ? "<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "<C-y>" : "<CR>"
 inoremap <expr><BS> deoplete#smart_close_popup()."<C-h>"
-inoremap <expr><tab> pumvisible() ? "\<C-n>" :
-      \ neosnippet#expandable_or_jumpable() ?
-      \    "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 
-"|---------|
-"|NERDTree |
-"|=========|
+"###snippets###
+imap <C-@>     <Plug>(neosnippet_expand_or_jump)
+smap <C-@>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-@>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <expr><TAB>
+ \ pumvisible() ? "\<C-n>" :
+ \ neosnippet#expandable_or_jumpable() ?
+ \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+
+"| --------- |
+"| NERDTree  |
+"| ========= |
 nnoremap <space>n :NERDTree<CR>
 "|----------|
 "| QuickRun |
@@ -74,13 +91,13 @@ let g:quickrun_config = {}
 let g:quickrun_config={'*': {'split': 'vertical'}}
 set splitright
 let g:quickrun_no_default_key_mappings = 1
-"|----------|
-"| devicons |
-"|==========|
+"| ---------- |
+"| devicons   |
+"| ========== |
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-"|-----------|
-"| TableMode |
-"|===========|
+"| ----------- |
+"| TableMode   |
+"| =========== |
 let g:table_mode_corner_corner='+'
 let g:table_mode_header_fillchar='='
 let g:table_mode_corner = '+'
@@ -105,7 +122,6 @@ let g:lightline = {
       \ 'separator': {'left': '', 'right': ''},
       \ 'subseparator': {'left': '' , 'right': ''}
       \ }
-
 
 "'modified' 
 "
