@@ -20,18 +20,10 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 ".jsonファイルを見やすく
 Plug 'elzr/vim-json', {'for': 'json'}        
-"NERDTreeなどでファイルにIconを表示する
-Plug 'ryanoasis/vim-devicons', {'on': 'NERDTreeToggle'}
 "コーディング規約をチェック
 Plug 'vim-syntastic/syntastic', {'for': 'java'}      
 "暗黒の力で補完
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
+Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 "検索やらなんやら
@@ -42,42 +34,29 @@ call plug#end()
 "| # | プラグイン設定 |
 "|===+================|
 "
-"| ----------------- |
-"| deoplete, snippet |
-"| ================= |
-let g:python3_host_prog = '/Users/user/miniconda3/bin/python3'
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#auto_complete_delay = 0
-let g:deoplete#auto_complete_start_length = 1
-let g:deoplete#enable_camel_case = 0
-let g:deoplete#enable_ignore_case = 0
-let g:deoplete#enable_refresh_always = 0
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#file#enable_buffer_path = 1
-let g:deoplete#max_list = 10000
-imap <expr><CR> neosnippet#expandable() ? "<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "<C-y>" : "<CR>"
-inoremap <expr><BS> deoplete#smart_close_popup()."<C-h>"
-
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"| -------------------- |
+"| neocomplete, snippet |
+"| ==================== |
 imap <C-@>     <Plug>(neosnippet_expand_or_jump)
 smap <C-@>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-@>     <Plug>(neosnippet_expand_target)
 
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <expr><TAB>
- \ pumvisible() ? "\<C-n>" :
- \ neosnippet#expandable_or_jumpable() ?
- \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
+" Vim起動時にneocompleteを有効にする
+let g:neocomplete#enable_at_startup = 1
+" smartcase有効化. 大文字が入力されるまで大文字小文字の区別を無視する
+let g:neocomplete#enable_smart_case = 1
+" 3文字以上の単語に対して補完を有効にする
+let g:neocomplete#min_keyword_length = 3
+" 区切り文字まで補完する
+let g:neocomplete#enable_auto_delimiter = 1
+" 1文字目の入力から補完のポップアップを表示
+let g:neocomplete#auto_completion_start_length = 1
+" バックスペースで補完のポップアップを閉じる
+inoremap <expr><BS> neocomplete#smart_close_popup()."<C-h>"
+" エンターキーで補完候補の確定. スニペットの展開もエンターキーで確定・・・・・・②
+"imap <expr><CR> neosnippet#expandable() ? "<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "<C-y>" : "<CR>"
+" タブキーで補完候補の選択. スニペット内のジャンプもタブキーでジャンプ・・・・・・③
+imap <expr><TAB> pumvisible() ? "<C-n>" : neosnippet#jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
 
 "|---------|
 "|NERDTree |
@@ -92,10 +71,6 @@ let g:quickrun_config = {}
 let g:quickrun_config={'*': {'split': 'vertical'}}
 set splitright
 let g:quickrun_no_default_key_mappings = 1
-"|----------|
-"| devicons |
-"|==========|
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 "|-----------|
 "| TableMode |
 "|===========|
@@ -120,9 +95,10 @@ let g:lightline = {
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head'
       \ },
-      \ 'separator': {'left': '', 'right': ''},
-      \ 'subseparator': {'left': '' , 'right': ''}
+      \ 'separator': {'left': '', 'right': ''},
+      \ 'subseparator': {'left': '' , 'right': ''}
       \ }
+
 
 "'modified' 
 "

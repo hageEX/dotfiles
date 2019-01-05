@@ -7,7 +7,8 @@ autoload -Uz vcs_info
 precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
-RPROMPT='%F{cyan}%K{clear} %D{%H:%M}%f%k'
+#RPROMPT='%D{%a %m/%d %T}'
+RPROMPT='%F{yellow}⏾%f%F{cyan}%K{clear} %D{%m/%d %a}  %D{%H:%M}%f%k'
 # PROMPT=\$vcs_info_msg_0_'%# '
 zstyle ':vcs_info:git:*' formats '%F{black}%K{34} %b %k%f'
 zstyle ':vcs_info:git:*' check-for-changes true
@@ -19,6 +20,7 @@ zstyle ':vcs_info:*' actionformats '%F{red}(%s)-[%b|%a]%f'
 PROMPT='%F{40}╭%f%F{cyan}%K{16} root@MacBookPro %k%f%F{16}%K{cyan}%k%f%F{16}%K{cyan}  %c%k%f%F{cyan} %f %F{34}%f$vcs_info_msg_0_%F{34}%f
 %F{46}╰%f%F{10}%f%F{149}%f '
 
+#PROMPT2=''
 #  %F{220}%f  %F{124}%f
 #   master ± ●
 
