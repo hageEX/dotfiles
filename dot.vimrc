@@ -34,7 +34,7 @@ Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 "非同期実行を可能にする
 "Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-"検索やらなんやら
+"曖昧検索
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 "テスト実行
@@ -97,7 +97,6 @@ nnoremap <space>n :NERDTree<CR>
 "+==========+
 nnoremap \r :write<CR>:QuickRun -mode n<CR>            
 xnoremap \r :<C-U>write<CR>gv:QuickRun -mode v<CR>
-
 let g:quickrun_config={'*': {'split': 'vertical'}}
 let g:quickrun_config._={ 'runner':'job',
     \       "runner/job/updatetime" : 10,
