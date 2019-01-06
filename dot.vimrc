@@ -1,6 +1,6 @@
-"+---+------------------------+
-"| # | プラグインインストール |
-"+===+========================+
+"+---+----------------+
+"| # | Plugin Install |
+"+===+================+
 call plug#begin()
 
 "表作成を補助する
@@ -22,8 +22,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'elzr/vim-json', {'for': 'json'}        
 "NERDTreeなどでファイルにIconを表示する
 Plug 'ryanoasis/vim-devicons', {'on': 'NERDTreeToggle'}
-"コーディング規約をチェック
-Plug 'vim-syntastic/syntastic', {'for': 'java'}      
 "暗黒の力で補完
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
@@ -34,17 +32,25 @@ else
 endif
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+"非同期実行を可能にする
+"Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 "検索やらなんやら
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+"テスト実行
+Plug 'janko-m/vim-test'
+Plug 'tpope/vim-dispatch'
+"コードチェック
+"Plug 'w0rp/ale'
+
 call plug#end()
-"|---+----------------|
-"| # | プラグイン設定 |
-"|===+================|
+"+---|----------------+
+"| # | Plugin Setting |
+"+===|================+
 "
-"| ----------------- |
+"+-------------------+
 "| deoplete, snippet |
-"| ================= |
+"+===================+
 let g:python3_host_prog = '/Users/user/miniconda3/bin/python3'
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_delay = 0
@@ -78,37 +84,45 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-
-"|---------|
-"|NERDTree |
-"|=========|
+"+-----+
+"| fzf |
+"+=====+
+nnoremap <Space>f :Files<CR>
+"+----------+
+"| NERDTree |
+"+==========+
 nnoremap <space>n :NERDTree<CR>
-"|----------|
+"+----------+
 "| QuickRun |
-"|==========|
+"+==========+
 nnoremap \r :write<CR>:QuickRun -mode n<CR>            
 xnoremap \r :<C-U>write<CR>gv:QuickRun -mode v<CR>
-let g:quickrun_config = {}
+
 let g:quickrun_config={'*': {'split': 'vertical'}}
+let g:quickrun_config._={ 'runner':'job',
+    \       "runner/job/updatetime" : 10,
+    \       "outputter/buffer/close_on_empty" : 1,
+    \ }
+"vimproc -> job
 set splitright
 let g:quickrun_no_default_key_mappings = 1
-"|----------|
-"| devicons |
-"|==========|
+"+----------+
+"| Devicons |
+"+==========+
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-"|-----------|
+"+-----------+
 "| TableMode |
-"|===========|
+"+===========+
 let g:table_mode_corner_corner='+'
 let g:table_mode_header_fillchar='='
 let g:table_mode_corner = '|'
-"|---------------------|
+"+---------------------+
 "| winresizer:画面分割 |
-"|=====================|
+"+=====================+
 let g:winresizer_start_key = '\'
-"|---+------------------|
-"| # | ステータスライン |
-"|===+==================|
+"+---|------------+
+"| # | StatusLine |
+"+===|============+
 set laststatus=2
 set showcmd
 let g:lightline = {
@@ -126,14 +140,13 @@ let g:lightline = {
 
 "'modified' 
 "
-
-"|---+------------------|
-"| # | カラーテーマ設定 |
-"|===+==================|
+"+---|------------+
+"| # | Colortheme |
+"+===|============+
 colorscheme despacio
-"|---+----------|
-"| # | 各種設定 |
-"|===+==========|
+"+---|---------+
+"| # | Setting |
+"+===|=========+
 filetype plugin indent on
 set ruler
 set number                             
@@ -144,13 +157,13 @@ set virtualedit=onemore
 "set t_Co=256
 set term=xterm-256color
 "+---+--------------+
-"| # | マウス有効化 |
+"| # | Mouse Enable |
 "+===+==============+
 set mouse=a                            
 set ttymouse=xterm2                    
-"|---+------|
-"| # | 配色 |
-"|===+======|
+"+---|--------+
+"| # | Colors |
+"+===|========+
 "カーソルライン
 set cursorline
 hi clear cursorline
@@ -160,18 +173,18 @@ hi clear cursorline
 hi Normal ctermfg=250                  "文字色
 hi Normal ctermbg=232                  "背景色
 hi CursorLineNr term=standout ctermfg=109 ctermbg=15
-"+---+------------+
-"| # | インデント |
-"+===+============+
+"+---+--------+
+"| # | Indent |
+"+===+========+
 set expandtab
 set autoindent                         
 set smartindent                         
 set shiftwidth=4
 set softtabstop=4
 set tabstop=8                          
-"+---+--------+
-"| # | その他 |
-"+===+========+
+"+---+-----+
+"| # | etc |
+"+===+=====+
 set directory=/home/SWAP               "swapFileを一箇所に集める
 set history=100                        "履歴の保存件数を指定
 set encoding=UTF-8                     "文字コードを指定
@@ -181,9 +194,9 @@ set noswapfile                         "swapFileを作らない
 set ambiwidth=double                   "全角記号の表示設定
 set clipboard+=unnamed,autoselect      "クリップボードを有効化
 set backspace=indent,eol,start         "BSを有効化
-"+---+------+
-"| # | 検索 |
-"+===+======+
+"+---+------------+
+"| # | Vim search |
+"+===+============+
 set hlsearch                           
 set ignorecase                         "検索時に大文字小文字を区別しない
 set smartcase                          "検索時に大文字を使った時は区別する
@@ -199,33 +212,33 @@ set showmatch matchtime=1              "対応するカッコを一瞬表示
 set whichwrap=b,s,h,l,<,>,[,],~        "カーソルの左右移動で行を移動可能にする
 set wildmenu                           "コマンドモードの補完
 set scrolloff=5                        "スクロール時に上下５行の視界を確保
-"+---+--------------------------------+
-"| # | 挿入モード mac emacs　カーソル |
-"+===+================================+
+"+---+-----------------------------+
+"| # | Cursor(Insert): mac emacs　 |
+"+===+=============================+
 inoremap<silent> <C-p> <Up>
 inoremap<silent> <C-n> <Down>
 inoremap<silent> <C-f> <Right>
 inoremap<silent> <C-b> <Left>
 "inoremap<silent> <c-h> <bs>
 inoremap<silent> <C-d> <Del>
-"+---+--------------------------+
-"| # | ノーマルモード mac emacs |
-"+===+==========================+
+"+---+---------------------------+
+"| # | Cursor(Normal): mac emacs |
+"+===+===========================+
 noremap<silent> <C-p> <Up>
 noremap<silent> <C-n> <Down>
 noremap<silent> <C-f> <Right>
 noremap<silent> <C-b> <Left>
 noremap<silent> <C-d> <Del>
-"+---+--------------------------+
-"| # | 挿入モード vim　カーソル |
-"+===+==========================+
+"+---+---------------------+
+"| # | Cursor(Insert): vim |
+"+===+=====================+
 inoremap<silent> <C-k> <Up>
 inoremap<silent> <C-j> <Down>
 inoremap<silent> <C-l> <Right>
 inoremap<silent> <C-h> <Left>
-"+---+------------------------------+
-"| # | ノーマルモード vim　カーソル |
-"+===+==============================+
+"+---+---------------------+
+"| # | Cursor(Normal): vim |
+"+===+=====================+
 noremap<silent> <C-k> <Up>
 noremap<silent> <C-j> <Down>
 noremap<silent> <C-l> <Right>
@@ -248,9 +261,9 @@ nnoremap <Space>q :q!<CR>
 "+===+==============================+
 inoremap<silent> jj <ESC>               
 "inoremap<silent> っj <ESC> 
-"+---+--------------------+
-"| # | バッファの切り替え |
-"+===+====================+
+"+---+---------------+
+"| # | Change Buffer |
+"+===+===============+
 noremap <f1> :bprev<CR>
 noremap <f2> :bnext<CR>
 noremap <C-left> :bprev<CR>
@@ -302,3 +315,8 @@ nnoremap H gT
 "+===+============+
 nnoremap い i
 noremap<silent> <C-i> i
+"+---|-------------------+
+"| # | Visual more ++ -- |
+"+===|===================+
+vnoremap <c-a> <c-a>gv
+vnoremap <c-x> <c-x>gv
