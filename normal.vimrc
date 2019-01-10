@@ -243,34 +243,6 @@ nnoremap Q gq
 "| # | カーソルがあるページ以外を閉じる |
 "+===+==================================+
 nnoremap <Space>o :only<CR>
-"+---+----------------+
-"| # | タブを表示する |
-"+===+================+
-function! MyTabLine()
-    let s = ''
-    for i in range(tabpagenr('$'))
-        " ラベルは MyTabLabel() で作成する
-        let my_tab_label = '%{MyTabLabel(' . (i + 1) . ')}'
-        " 強調表示グループの選択
-        if i + 1 == tabpagenr()
-            let s .= '%#TabLineSel#'
-        else
-            let s .= '%#TabLine#'
-        endif
-        " タブ番号 : [ファイル名] のフォーマットになるように設定
-        let s .= (i + 1) . ':[' . my_tab_label .'] '
-    endfor
-
-    " 最後のタブページの後は TabLineFill で埋め、タブページ番号をリセットする
-    let s .= '%#TabLineFill#%T'
-
-    return s
-endfunction                                                                     
-function! MyTabLabel(n)
-    let buflist = tabpagebuflist(a:n)
-    let winnr = tabpagewinnr(a:n)
-    return fnamemodify(bufname(buflist[winnr - 1]), ":t")
-endfunction
 "+---+----------------------+
 "| # | タブの新規作成、移動 |
 "+===+======================+

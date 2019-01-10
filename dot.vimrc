@@ -1,3 +1,5 @@
+"Plugin manager = Vim-plug
+"Nerd-fonts = 16pt Literation Mono Nerd Font Complete
 "+---+----------------+
 "| # | Plugin Install |
 "+===+================+
@@ -42,6 +44,8 @@ Plug 'janko-m/vim-test'
 Plug 'tpope/vim-dispatch'
 "コードチェック
 "Plug 'w0rp/ale'
+"計り知れない暗黒の力
+Plug 'Shougo/denite.nvim'
 
 call plug#end()
 "+---|----------------+
@@ -128,16 +132,30 @@ let g:lightline = {
       \ 'colorscheme': 'jellybeans',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'gitbranch' ] ]
+      \             [ 'readonly', 'filename', 'gitbranch' ] ],
+      \   'right': [[''], ['percent'], ['fileformat', 'fileencoding', 'filetype']]
+      \ },
+      \ 'tab': {
+      \     'active': ['', 'filename', 'modified'],
+      \     'inactive': ['', 'filename', 'modified']
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head'
       \ },
       \ 'separator': {'left': '', 'right': ''},
-      \ 'subseparator': {'left': '' , 'right': ''}
+      \ 'subseparator': {'left': '' , 'right': ''},
+      \ 'tabline_separator': {'left':'', 'right': ''},
+      \ 'tabline_subseparator': {'left':'', 'right': ''},
       \ }
 
-"'modified' 
+"function! () abort
+"    if winwidth(0) > 70
+"        return ''
+"    else
+"        return ''
+"    endif
+"endfunction
+
 "
 "+---|------------+
 "| # | Colortheme |
@@ -275,34 +293,6 @@ nnoremap Q gq
 "| # | カーソルがあるページ以外を閉じる |
 "+===+==================================+
 nnoremap <Space>o :only<CR>
-"+---+----------------+
-"| # | タブを表示する |
-"+===+================+
-function! MyTabLine()
-    let s = ''
-    for i in range(tabpagenr('$'))
-        " ラベルは MyTabLabel() で作成する
-        let my_tab_label = '%{MyTabLabel(' . (i + 1) . ')}'
-        " 強調表示グループの選択
-        if i + 1 == tabpagenr()
-            let s .= '%#TabLineSel#'
-        else
-            let s .= '%#TabLine#'
-        endif
-        " タブ番号 : [ファイル名] のフォーマットになるように設定
-        let s .= (i + 1) . ':[' . my_tab_label .'] '
-    endfor
-
-    " 最後のタブページの後は TabLineFill で埋め、タブページ番号をリセットする
-    let s .= '%#TabLineFill#%T'
-
-    return s
-endfunction                                                                     
-function! MyTabLabel(n)
-    let buflist = tabpagebuflist(a:n)
-    let winnr = tabpagewinnr(a:n)
-    return fnamemodify(bufname(buflist[winnr - 1]), ":t")
-endfunction
 "+---+----------------------+
 "| # | タブの新規作成、移動 |
 "+===+======================+

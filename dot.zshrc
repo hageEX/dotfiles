@@ -1,3 +1,5 @@
+#Nerd-fonts = 16pt Literation Mono Nerd Font Complete
+#vim :set ft=zsh
 
 #おまじない
 autoload -Uz compinit && compinit
@@ -7,9 +9,7 @@ autoload -Uz vcs_info
 precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
-#RPROMPT='%D{%a %m/%d %T}'
 RPROMPT='%F{yellow}⏾%f%F{cyan}%K{clear} %D{%m/%d %a}  %D{%H:%M}%f%k'
-# PROMPT=\$vcs_info_msg_0_'%# '
 zstyle ':vcs_info:git:*' formats '%F{black}%K{34} %b %k%f'
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "+"
@@ -18,11 +18,13 @@ zstyle ':vcs_info:git:*' actionformats '(%s)-[%b|%a] %c%u'
 zstyle ':vcs_info:*' actionformats '%F{red}(%s)-[%b|%a]%f'
 
 PROMPT='%F{40}╭%f%F{cyan}%K{16} root@MacBookPro %k%f%F{16}%K{cyan}%k%f%F{16}%K{cyan}  %c%k%f%F{cyan} %f %F{34}%f$vcs_info_msg_0_%F{34}%f
-%F{46}╰%f%F{10}%f%F{149}%f '
+%F{46}╰─%f%F{10}%f%F{149}%f '
 
-#PROMPT2=''
+#PROMPT='%F{124}user@xxx%f:%F{90}[%c]%f:$ '
+#RPROMPT=''
+
 #  %F{220}%f  %F{124}%f
-#   master ± ●
+#   ± ●
 
 ######プラグインインストール######
 # zplugが無ければgitからclone
@@ -108,13 +110,23 @@ export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 #cd時、PATHを直打ちで移動可能に。
 setopt auto_cd
+#移動したディレクトリを記録しておく
+setopt auto_pushd
+#補完候補表示時などにビープ音をならないように設定
+setopt nolistbeep
+#打ち間違いをに対応
+setopt correct
 #historyファイルを作って、そこから過去のコマンドも実行可能に
 export LANG=ja_JP.UTF-8
 export HISTFILE=$HOME/.zsh-history
-export HISTSIZE=300
-export SAVEHIST=1000
+export HISTSIZE=1000
+export SAVEHIST=10000
 #重複を記録しない
 setopt hist_ignore_dups
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+#既に作成された重複を履歴から取り除く
+sort -t ";" -k 2 -u ~/.zsh-history | sort -o ~/.zsh-history
 #開始と終了を記録
 setopt EXTENDED_HISTORY
 #複数のターミナル間で履歴を共有する
@@ -170,6 +182,8 @@ alias du='du -hs'
 alias df='df -h'
 alias ..='cd ..'
 alias g='grep'
+alias opa='open -a'
+alias his='history'
 #+---|--------+
 #| # | GitHub |
 #+===|========+
@@ -188,9 +202,14 @@ alias gmv="git mv"
 alias grm="git rm"
 alias fetch="git fetch"
 alias remote="git remote"
-alias cout="git checkout"
+alias check="git checkout"
 alias ggrep="git grep"
 alias gclean="git clean"
+alias gdiff="git diff"
+###Linux Open Command
+#alias open='xdg-open'
+###Linux Open Command(GNOME)
+#alias open='gnome-open'
 #+---|-------------------------------+
 #| # | added by Miniconda3 installer |
 #+---|-------------------------------+
