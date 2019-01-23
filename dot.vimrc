@@ -46,7 +46,10 @@ Plug 'tpope/vim-dispatch'
 "Plug 'w0rp/ale'
 "計り知れない暗黒の力
 Plug 'Shougo/denite.nvim'
-
+"Python補完
+"Plug 'davidhalter/jedi-vim', {'for': 'python'}
+"pythonインデントに自動調整
+Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
 call plug#end()
 "+---|----------------+
 "| # | Plugin Setting |
@@ -106,6 +109,10 @@ let g:quickrun_config._={ 'runner':'job',
     \       "runner/job/updatetime" : 10,
     \       "outputter/buffer/close_on_empty" : 1,
     \ }
+" <C-c> で実行を強制終了させる
+" quickrun.vim が実行していない場合には <C-c> を呼び出す
+nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+
 "vimproc -> job
 set splitright
 let g:quickrun_no_default_key_mappings = 1
@@ -113,6 +120,10 @@ let g:quickrun_no_default_key_mappings = 1
 "| Devicons |
 "+==========+
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:Webdevicons_enable = 1
+let g:Webdevicons_enable_nerdtree = 1
+let g:Webdevicons_enable_nerdtree_brackets = 1
+let g:WebdeviconsUnicodeGlyphDoubleWidth = 1
 "+-----------+
 "| TableMode |
 "+===========+
@@ -204,9 +215,10 @@ set tabstop=8
 "+===+=====+
 set directory=/home/SWAP               "swapFileを一箇所に集める
 set history=100                        "履歴の保存件数を指定
-set encoding=UTF-8                     "文字コードを指定
-set fileencoding=UTF-8
-set termencoding=UTF-8
+set encoding=utf-8                     "文字コードを指定
+set fileencodings=utf-8,sjis
+set fileformats=unix,dos,mac
+set termencoding=utf-8
 set noswapfile                         "swapFileを作らない
 set ambiwidth=double                   "全角記号の表示設定
 set clipboard+=unnamed,autoselect      "クリップボードを有効化
@@ -229,9 +241,18 @@ set showmatch matchtime=1              "対応するカッコを一瞬表示
 set whichwrap=b,s,h,l,<,>,[,],~        "カーソルの左右移動で行を移動可能にする
 set wildmenu                           "コマンドモードの補完
 set scrolloff=5                        "スクロール時に上下５行の視界を確保
-"+---+-----------------------------+
-"| # | Cursor(Insert): mac emacs　 |
-"+===+=============================+
+"全角スペースを可視化
+hi DoubleByteSpace term=underline ctermbg=245
+match DoubleByteSpace /　/
+"不可視文字を表示、表示文字を設定
+"set list
+"set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+set listchars=tab:»-,trail:-,eol:↵,extends:»,precedes:«,nbsp:%
+"不可視文字を非表示にする
+"set nolist
+"+---+---------------------------+
+"| # | Cursor(Insert): mac emacs |
+"+===+===========================+
 inoremap<silent> <C-p> <Up>
 inoremap<silent> <C-n> <Down>
 inoremap<silent> <C-f> <Right>
@@ -256,6 +277,8 @@ inoremap<silent> <C-h> <Left>
 "+---+---------------------+
 "| # | Cursor(Normal): vim |
 "+===+=====================+
+nnoremap j gj
+nnoremap k gk
 noremap<silent> <C-k> <Up>
 noremap<silent> <C-j> <Down>
 noremap<silent> <C-l> <Right>
@@ -270,8 +293,7 @@ nnoremap <C-e> $
 "| # | 保存、終了、選択 |
 "+===+==================+
 "noremap <Space>v <C-v>
-nnoremap <Space>s :w<CR>
-nnoremap <Space>w :q<CR>
+nnoremap <Space>w :w<CR>
 nnoremap <Space>q :q!<CR>
 "+---+------------------------------+
 "| # | インサートからノーマルへ移動 |
@@ -309,3 +331,10 @@ noremap<silent> <C-i> i
 "+===|===================+
 vnoremap <c-a> <c-a>gv
 vnoremap <c-x> <c-x>gv
+"+---|--------------------------------+
+"| # | 検索時に検索語句を真ん中に表示 |
+"+===|================================+
+map n nzz
+map N Nzz
+
+

@@ -1,4 +1,4 @@
-#Nerd-fonts = 16pt Literation Mono Nerd Font Complete
+#Nerd-fonts = 16pt Literation Mono Nerd Font Complete.
 #vim :set ft=zsh
 
 #おまじない
@@ -184,9 +184,12 @@ alias ..='cd ..'
 alias g='grep'
 alias opa='open -a'
 alias his='history'
-#+---|--------+
-#| # | GitHub |
-#+===|========+
+alias eman='LANG=C man'
+alias gf='grep -F'
+alias home='cd ~'
+#+---|-----+
+#| # | Git |
+#+===|=====+
 alias sta="git status"
 alias add="git add"
 alias comi="git commit"
@@ -196,7 +199,7 @@ alias show="git show"
 alias bran="git branch"
 alias pull="git pull"
 alias push="git push"
-alias init="git init"
+alias ginit="git init"
 alias clone="git clone"
 alias gmv="git mv"
 alias grm="git rm"
