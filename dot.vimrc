@@ -6,7 +6,7 @@
 call plug#begin()
 
 "表作成を補助する
-Plug 'dhruvasagar/vim-table-mode', {'on': 'TableModeEnableToggle'}     
+Plug 'dhruvasagar/vim-table-mode', {'on': 'TableModeEnableToggle'}
 "ツリー構造を表示する
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 "statuslineを強化
@@ -21,7 +21,7 @@ Plug 'simeji/winresizer'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 ".jsonファイルを見やすく
-Plug 'elzr/vim-json', {'for': 'json'}        
+Plug 'elzr/vim-json', {'for': 'json'}
 "NERDTreeなどでファイルにIconを表示する
 Plug 'ryanoasis/vim-devicons', {'on': 'NERDTreeToggle'}
 "暗黒の力で補完
@@ -43,13 +43,16 @@ Plug 'junegunn/fzf.vim'
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-dispatch'
 "コードチェック
-"Plug 'w0rp/ale'
+Plug 'w0rp/ale', {'for': 'java'}
 "計り知れない暗黒の力
 Plug 'Shougo/denite.nvim'
 "Python補完
 "Plug 'davidhalter/jedi-vim', {'for': 'python'}
 "pythonインデントに自動調整
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
+"カーソルの移動を快適にする
+Plug 'easymotion/vim-easymotion'
+
 call plug#end()
 "+---|----------------+
 "| # | Plugin Setting |
@@ -91,6 +94,15 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
+"+-------------+
+"| easy-motion |
+"+=============+
+" デフォルトのキーマッピングを無効に
+let g:EasyMotion_do_mapping = 0
+" f + 2文字 で画面全体を検索してジャンプ
+nmap f <plug>(easymotion-overwin-f2)
+" 検索時、大文字小文字を区別しない
+let g:EasyMotion_smartcase = 1
 "+-----+
 "| fzf |
 "+=====+
@@ -102,7 +114,7 @@ nnoremap <space>n :NERDTree<CR>
 "+----------+
 "| QuickRun |
 "+==========+
-nnoremap \r :write<CR>:QuickRun -mode n<CR>            
+nnoremap \r :write<CR>:QuickRun -mode n<CR>
 xnoremap \r :<C-U>write<CR>gv:QuickRun -mode v<CR>
 let g:quickrun_config={'*': {'split': 'vertical'}}
 let g:quickrun_config._={ 'runner':'job',
@@ -177,18 +189,22 @@ colorscheme despacio
 "+===|=========+
 filetype plugin indent on
 set ruler
-set number                             
-set title                              
-syntax on                               
-set belloff=all                        
-set virtualedit=onemore                 
+set number
+"相対行番号を表示する
+set relativenumber
+"<F3>で相対行番号と絶対行番号を切り替える
+nnoremap <F3> :<C-u>setlocal relativenumber!<CR>
+set title
+syntax enable
+set belloff=all
+set virtualedit=onemore
 "set t_Co=256
 set term=xterm-256color
 "+---+--------------+
 "| # | Mouse Enable |
 "+===+==============+
-set mouse=a                            
-set ttymouse=xterm2                    
+set mouse=a
+set ttymouse=xterm2
 "+---|--------+
 "| # | Colors |
 "+===|========+
@@ -201,15 +217,17 @@ hi clear cursorline
 hi Normal ctermfg=250                  "文字色
 hi Normal ctermbg=232                  "背景色
 hi CursorLineNr term=standout ctermfg=109 ctermbg=15
+"対括弧強調表示
+hi MatchParen ctermbg=21
 "+---+--------+
 "| # | Indent |
 "+===+========+
 set expandtab
-set autoindent                         
-set smartindent                         
+set autoindent
+set smartindent
 set shiftwidth=4
 set softtabstop=4
-set tabstop=8                          
+set tabstop=8
 "+---+-----+
 "| # | etc |
 "+===+=====+
@@ -226,7 +244,7 @@ set backspace=indent,eol,start         "BSを有効化
 "+---+------------+
 "| # | Vim search |
 "+===+============+
-set hlsearch                           
+set hlsearch
 set ignorecase                         "検索時に大文字小文字を区別しない
 set smartcase                          "検索時に大文字を使った時は区別する
 set incsearch                          "検索時に一文字入力毎に検索を行う
@@ -250,6 +268,8 @@ match DoubleByteSpace /　/
 set listchars=tab:»-,trail:-,eol:↵,extends:»,precedes:«,nbsp:%
 "不可視文字を非表示にする
 "set nolist
+"行末の半角スペースを取り除く
+autocmd BufWritePre * :%s/\s\+$//ge
 "+---+---------------------------+
 "| # | Cursor(Insert): mac emacs |
 "+===+===========================+
@@ -266,7 +286,7 @@ noremap<silent> <C-p> <Up>
 noremap<silent> <C-n> <Down>
 noremap<silent> <C-f> <Right>
 noremap<silent> <C-b> <Left>
-noremap<silent> <C-d> <Del>
+"noremap<silent> <C-d> <Del>
 "+---+---------------------+
 "| # | Cursor(Insert): vim |
 "+===+=====================+
@@ -298,8 +318,8 @@ nnoremap <Space>q :q!<CR>
 "+---+------------------------------+
 "| # | インサートからノーマルへ移動 |
 "+===+==============================+
-inoremap<silent> jj <ESC>               
-"inoremap<silent> っj <ESC> 
+inoremap<silent> jj <ESC>
+"inoremap<silent> っj <ESC>
 "+---+---------------+
 "| # | Change Buffer |
 "+===+===============+
@@ -324,8 +344,8 @@ nnoremap H gT
 "+---+------------+
 "| # | 日本語入力 |
 "+===+============+
-nnoremap い i
-noremap<silent> <C-i> i
+"nnoremap い i
+"noremap<silent> <C-i> i
 "+---|-------------------+
 "| # | Visual more ++ -- |
 "+===|===================+
@@ -336,5 +356,4 @@ vnoremap <c-x> <c-x>gv
 "+===|================================+
 map n nzz
 map N Nzz
-
 

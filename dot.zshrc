@@ -9,7 +9,7 @@ autoload -Uz vcs_info
 precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
-RPROMPT='%F{yellow}⏾%f%F{cyan}%K{clear} %D{%m/%d %a}  %D{%H:%M}%f%k'
+RPROMPT='%F{yellow}⏾%f%F{cyan}%K{clear} %D{%m/%d(%a)}  %D{%H:%M}%f%k'
 zstyle ':vcs_info:git:*' formats '%F{black}%K{34} %b %k%f'
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "+"
@@ -62,7 +62,7 @@ zplug "motemen/ghq", as:command, from:gh-r
 #プロンプトカスタマイズ
 #zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
 
-# インストールしてないプラグインはインストール
+# インストールしていないプラグインをインストール
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
     if read -q; then
@@ -133,7 +133,7 @@ setopt EXTENDED_HISTORY
 setopt share_history
 setopt no_beep
 #補完関連
-setopt auto_list 
+setopt auto_list
 setopt auto_menu
 # / を自動的に付加し、次の補完に備える
 setopt auto_param_slash
@@ -182,11 +182,12 @@ alias du='du -hs'
 alias df='df -h'
 alias ..='cd ..'
 alias g='grep'
-alias opa='open -a'
+alias op='open -a'
 alias his='history'
 alias eman='LANG=C man'
 alias gf='grep -F'
 alias home='cd ~'
+alias reload='exec $SHELL -l'
 #+---|-----+
 #| # | Git |
 #+===|=====+
@@ -243,3 +244,8 @@ net(){
         *)      open "${url}";;
     esac
 }
+
+#Homebrewの情報収集を停止させる
+export HOMEBREW_NO_ANALYTICS=1
+#Terminalから行う場合は以下のコマンド
+#brew analytics off
