@@ -1,5 +1,5 @@
 #Nerd-fonts = 16pt Literation Mono Nerd Font Complete.
-#vim :set ft=zsh
+# vim: ft=zsh
 
 #おまじない
 autoload -Uz compinit && compinit
@@ -249,3 +249,4 @@ net(){
 export HOMEBREW_NO_ANALYTICS=1
 #Terminalから行う場合は以下のコマンド
 #brew analytics off
+#

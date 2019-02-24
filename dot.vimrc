@@ -1,30 +1,31 @@
-"Plugin manager = Vim-plug
-"Nerd-fonts = 16pt Literation Mono Nerd Font Complete
+" Plugin manager = Vim-plug
+" Nerd-fonts = 16pt Literation Mono Nerd Font Complete
+" vim: ft=vim
 "+---+----------------+
 "| # | Plugin Install |
 "+===+================+
 call plug#begin()
 
-"表作成を補助する
+" 表作成を補助する
 Plug 'dhruvasagar/vim-table-mode', {'on': 'TableModeEnableToggle'}
-"ツリー構造を表示する
+" ツリー構造を表示する
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 "statuslineを強化
 Plug 'itchyny/lightline.vim'
-"プログラムコードをvim上で実行する
+" プログラムコードをvim上で実行する
 Plug 'thinca/vim-quickrun'
-"対括弧を自動保管
+" 対括弧を自動保管
 Plug 'Townk/vim-autoclose'
-"画面分割幅を変更する
+" 画面分割幅を変更する
 Plug 'simeji/winresizer'
-"Git補助機能
+" Git補助機能
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
-".jsonファイルを見やすく
+" .jsonファイルを見やすく
 Plug 'elzr/vim-json', {'for': 'json'}
-"NERDTreeなどでファイルにIconを表示する
+" NERDTreeなどでファイルにIconを表示する
 Plug 'ryanoasis/vim-devicons', {'on': 'NERDTreeToggle'}
-"暗黒の力で補完
+" 暗黒の力で補完
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 else
@@ -34,30 +35,52 @@ else
 endif
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
-"非同期実行を可能にする
+" 非同期実行を可能にする
 "Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-"曖昧検索
+" 曖昧検索
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 "テスト実行
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-dispatch'
-"コードチェック
-Plug 'w0rp/ale', {'for': 'java'}
-"計り知れない暗黒の力
+" コードチェック
+Plug 'w0rp/ale' ", {'for': ['java', 'python']}
+" 計り知れない暗黒の力
 Plug 'Shougo/denite.nvim'
-"Python補完
-"Plug 'davidhalter/jedi-vim', {'for': 'python'}
-"pythonインデントに自動調整
+" Python補完
+" Plug 'davidhalter/jedi-vim', {'for': 'python'}
+" pythonインデントに自動調整
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
-"カーソルの移動を快適にする
+" カーソルの移動を快適にする
 Plug 'easymotion/vim-easymotion'
+" vim-lsp
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" python-lsp
+Plug 'palantir/python-language-server'
 
 call plug#end()
 "+---|----------------+
 "| # | Plugin Setting |
 "+===|================+
 "
+"+---------+
+"| vim-lsp |
+"+=========+
+" Python
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+                \'name': 'pyls',
+                \'cmd': {server_info->['pyls']},
+                \'whitelist': ['python'],
+                \})
+endif
+"+------------+
+"| neovim-lsp |
+"+============+
+
 "+-------------------+
 "| deoplete, snippet |
 "+===================+
@@ -125,7 +148,7 @@ let g:quickrun_config._={ 'runner':'job',
 " quickrun.vim が実行していない場合には <C-c> を呼び出す
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
-"vimproc -> job
+" vimproc -> job
 set splitright
 let g:quickrun_no_default_key_mappings = 1
 "+----------+
@@ -152,32 +175,53 @@ let g:winresizer_start_key = '\'
 set laststatus=2
 set showcmd
 let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'gitbranch' ] ],
-      \   'right': [[''], ['percent'], ['fileformat', 'fileencoding', 'filetype']]
-      \ },
-      \ 'tab': {
-      \     'active': ['', 'filename', 'modified'],
-      \     'inactive': ['', 'filename', 'modified']
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ 'separator': {'left': '', 'right': ''},
-      \ 'subseparator': {'left': '' , 'right': ''},
-      \ 'tabline_separator': {'left':'', 'right': ''},
-      \ 'tabline_subseparator': {'left':'', 'right': ''},
-      \ }
+        \ 'colorscheme': 'jellybeans',
+        \ 'mode_map': {'c': 'NORMAL'},
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ], [ 'filename' ], [ 'fugitive' ] ],
+        \   'right': [ [''], ['percent'], ['fileformat', 'fileencoding', 'filetype']]
+        \ },
+        \ 'tab': {
+        \     'active': ['', 'filename', 'modified'],
+        \     'inactive': ['', 'filename', 'modified']
+        \ },
+        \ 'component_function': {
+        \   'fugitive': 'LightlineFugitive',
+        \   'fileformat': 'LightlineFileformat',
+        \   'filetype': 'LightlineFiletype',
+        \   'fileencoding': 'LightlineFileencoding',
+        \   'mode': 'LightlineMode'
+        \ },
+        \ 'separator': {'left': '', 'right': ''},
+        \ 'subseparator': {'left': '' , 'right': ''},
+        \ 'tabline_separator': {'left':'|', 'right': '|'},
+        \ 'tabline_subseparator': {'left':'|', 'right': '|'},
+        \ }
 
-"function! () abort
-"    if winwidth(0) > 70
-"        return ''
-"    else
-"        return ''
-"    endif
-"endfunction
+function! LightlineFugitive()
+    if exists('*fugitive#head')
+        let branch = fugitive#head()
+        return branch !=# '' ? ''.branch : ''
+    endif
+    return ''
+endfunction
+
+function! LightlineFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightlineFiletype()
+  return winwidth(0) > 50 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+
+function! LightlineFileencoding()
+  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+endfunction
+
+function! LightlineMode()
+  return winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
 
 "
 "+---|------------+
@@ -190,9 +234,9 @@ colorscheme despacio
 filetype plugin indent on
 set ruler
 set number
-"相対行番号を表示する
+" 相対行番号を表示する
 set relativenumber
-"<F3>で相対行番号と絶対行番号を切り替える
+" <F3>で相対行番号と絶対行番号を切り替える
 nnoremap <F3> :<C-u>setlocal relativenumber!<CR>
 set title
 syntax enable
@@ -208,16 +252,16 @@ set ttymouse=xterm2
 "+---|--------+
 "| # | Colors |
 "+===|========+
-"カーソルライン
+" カーソルライン
 set cursorline
 hi clear cursorline
-"その他
+" その他
 "hi Comment ctermfg=242                "コメント
 "hi LineNr ctermfg=darkred             "行番号
 hi Normal ctermfg=250                  "文字色
 hi Normal ctermbg=232                  "背景色
 hi CursorLineNr term=standout ctermfg=109 ctermbg=15
-"対括弧強調表示
+" 対括弧強調表示
 hi MatchParen ctermbg=21
 "+---+--------+
 "| # | Indent |
@@ -259,16 +303,16 @@ set showmatch matchtime=1              "対応するカッコを一瞬表示
 set whichwrap=b,s,h,l,<,>,[,],~        "カーソルの左右移動で行を移動可能にする
 set wildmenu                           "コマンドモードの補完
 set scrolloff=5                        "スクロール時に上下５行の視界を確保
-"全角スペースを可視化
+" 全角スペースを可視化
 hi DoubleByteSpace term=underline ctermbg=245
 match DoubleByteSpace /　/
-"不可視文字を表示、表示文字を設定
+" 不可視文字を表示、表示文字を設定
 "set list
 "set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 set listchars=tab:»-,trail:-,eol:↵,extends:»,precedes:«,nbsp:%
-"不可視文字を非表示にする
+" 不可視文字を非表示にする
 "set nolist
-"行末の半角スペースを取り除く
+" 行末の半角スペースを取り除く
 autocmd BufWritePre * :%s/\s\+$//ge
 "+---+---------------------------+
 "| # | Cursor(Insert): mac emacs |
