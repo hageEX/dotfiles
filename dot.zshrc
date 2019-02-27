@@ -214,6 +214,11 @@ alias gdiff="git diff"
 #alias open='xdg-open'
 ###Linux Open Command(GNOME)
 #alias open='gnome-open'
+
+#+---|-----------+
+#| # | Rust PATH |
+#+---|-----------+
+export PATH="$HOME/.cargo/bin:$PATH"
 #+---|-------------------------------+
 #| # | added by Miniconda3 installer |
 #+---|-------------------------------+

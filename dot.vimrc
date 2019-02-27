@@ -44,7 +44,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-dispatch'
 " コードチェック
-Plug 'w0rp/ale' ", {'for': ['java', 'python']}
+Plug 'w0rp/ale'
 " 計り知れない暗黒の力
 Plug 'Shougo/denite.nvim'
 " Python補完
@@ -58,18 +58,58 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-" python-lsp
-Plug 'palantir/python-language-server'
+" TypeScript-lsp?
+Plug 'ryanolsonx/vim-lsp-typescript'
+" JavaScript-lsp
+Plug 'ryanolsonx/vim-lsp-javascript'
+" (M)マークダウンをサポート
+Plug 'plasticboy/vim-markdown', {'for': ['markdown', 'html', 'js']}
+" (M)マークダウンをプレビュー表示
+Plug 'kannokanno/previm'
+" (M+)vim上のURLや文字列をブラウザで検索
+Plug 'tyru/open-browser.vim'
+" vimのオートセーブを可能にする
+Plug 'vim-scripts/vim-auto-save', {'for': ['markdown', 'html', 'js']}
 
 call plug#end()
 "+---|----------------+
 "| # | Plugin Setting |
 "+===|================+
 "
+"+---------------+
+"| vim-auto-save |
+"+===============+
+" オートセーブが使いたくなったときはこちらー！（浜田風）
+let g:auto_save = 1
+let g:auto_save_in_insert_mode = 0
+"+------------+
+"| (M)arkDown |
+"+============+
+" 折りたたみの禁止
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_new_list_item_indent = 0
+
+" プレビューに使用するブラウザを設定
+let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_conceal = 0
+let g:tex_conceal = " "
+let g:vim_markdown_math = 1
+let g:vim_markdown_strikethrough = 1
+let g:previm_enable_realtime = 1
+autocmd BufRead,BufNewFile *.md set filetype=markdown
+let g:previm_open_cmd = 'open -a firefox'
+" ctrl mでプレビュー
+nnoremap <silent> <C-m> :PrevimOpen<CR>
+
+" gxで選択した文字列をブラウザ検索
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
 "+---------+
 "| vim-lsp |
 "+=========+
-" Python
+" //Python
 if executable('pyls')
     au User lsp_setup call lsp#register_server({
                 \'name': 'pyls',
@@ -77,6 +117,34 @@ if executable('pyls')
                 \'whitelist': ['python'],
                 \})
 endif
+
+" //Rust
+if executable('rls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'rls',
+        \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
+        \ 'whitelist': ['rust'],
+        \ })
+endif
+
+" //TypeScript
+if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+        \ 'whitelist': ['typescript', 'typescript.tsx'],
+        \ })
+endif
+
+" //JavaScript
+ au User lsp_setup call lsp#register_server({
+    \ 'name': 'javascript support using typescript-language-server',
+    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+    \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
+    \ 'whitelist': ['javascript', 'javascript.jsx'],
+    \ })
+
 "+------------+
 "| neovim-lsp |
 "+============+
@@ -239,11 +307,12 @@ set relativenumber
 " <F3>で相対行番号と絶対行番号を切り替える
 nnoremap <F3> :<C-u>setlocal relativenumber!<CR>
 set title
-syntax enable
 set belloff=all
 set virtualedit=onemore
 "set t_Co=256
 set term=xterm-256color
+syntax enable
+set termguicolors
 "+---+--------------+
 "| # | Mouse Enable |
 "+===+==============+
@@ -260,6 +329,10 @@ hi clear cursorline
 "hi LineNr ctermfg=darkred             "行番号
 hi Normal ctermfg=250                  "文字色
 hi Normal ctermbg=232                  "背景色
+" set termguicolors時に反映
+"hi Normal guibg=#101020                "背景色
+hi Normal guibg=#000033
+hi Normal guifg=#ccccff                "文字色
 hi CursorLineNr term=standout ctermfg=109 ctermbg=15
 " 対括弧強調表示
 hi MatchParen ctermbg=21
