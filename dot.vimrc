@@ -75,7 +75,16 @@ call plug#end()
 "+---|----------------+
 "| # | Plugin Setting |
 "+===|================+
-"
+
+"+-----+
+"| ale |
+"+=====+
+" シンタックスチェックの表示シンボルを変更する
+let g:ale_sign_error = '⌦'
+let g:ale_sign_warning = '⚠'
+" エラー箇所にジャンプ
+nmap <silent> J <Plug>(ale_next_wrap)
+nmap <silent> K <Plug>(ale_previous_wrap)
 "+---------------+
 "| vim-auto-save |
 "+===============+
@@ -93,7 +102,7 @@ let g:vim_markdown_new_list_item_indent = 0
 " プレビューに使用するブラウザを設定
 let g:vim_markdown_no_default_key_mappings = 1
 let g:vim_markdown_conceal = 0
-let g:tex_conceal = " "
+let g:tex_conceal = ''
 let g:vim_markdown_math = 1
 let g:vim_markdown_strikethrough = 1
 let g:previm_enable_realtime = 1
@@ -109,6 +118,13 @@ vmap gx <Plug>(openbrowser-smart-search)
 "+---------+
 "| vim-lsp |
 "+=========+
+" Syntax Check signs    0=disable, 1=enable
+let g:lsp_signs_enabled = 1
+let g:lsp_signs_error = {'text': '⌦'}
+let g:lsp_signs_warning = {'text': '⚠',}
+nmap <silent> J :LspNextError<CR>
+nmap <silent> K :LspPreviousError<CR>
+
 " //Python
 if executable('pyls')
     au User lsp_setup call lsp#register_server({
@@ -202,16 +218,20 @@ nnoremap <Space>f :Files<CR>
 "| NERDTree |
 "+==========+
 nnoremap <space>n :NERDTree<CR>
+let NERDTreeWinSize = 25
 "+----------+
 "| QuickRun |
 "+==========+
 nnoremap \r :write<CR>:QuickRun -mode n<CR>
 xnoremap \r :<C-U>write<CR>gv:QuickRun -mode v<CR>
 let g:quickrun_config={'*': {'split': 'vertical'}}
+" 左右分割する場合は、下の/buffer/splitの行をコメントアウト
 let g:quickrun_config._={ 'runner':'job',
     \       "runner/job/updatetime" : 10,
     \       "outputter/buffer/close_on_empty" : 1,
+    \       "outputter/buffer/split" : ":botright 8",
     \ }
+
 " <C-c> で実行を強制終了させる
 " quickrun.vim が実行していない場合には <C-c> を呼び出す
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
@@ -250,8 +270,8 @@ let g:lightline = {
         \   'right': [ [''], ['percent'], ['fileformat', 'fileencoding', 'filetype']]
         \ },
         \ 'tab': {
-        \     'active': ['', 'filename', 'modified'],
-        \     'inactive': ['', 'filename', 'modified']
+        \   'active': ['', 'filename', 'modified'],
+        \   'inactive': ['', 'filename', 'modified']
         \ },
         \ 'component_function': {
         \   'fugitive': 'LightlineFugitive',
@@ -329,13 +349,14 @@ hi clear cursorline
 "hi LineNr ctermfg=darkred             "行番号
 hi Normal ctermfg=250                  "文字色
 hi Normal ctermbg=232                  "背景色
-" set termguicolors時に反映
-"hi Normal guibg=#101020                "背景色
-hi Normal guibg=#000033
-hi Normal guifg=#ccccff                "文字色
 hi CursorLineNr term=standout ctermfg=109 ctermbg=15
 " 対括弧強調表示
 hi MatchParen ctermbg=21
+" set termguicolors時に反映
+hi Normal guibg=#000022                "背景色
+hi Normal guifg=#B3ADA5
+" hi Normal guibg=#2B2B2B                "背景色
+" hi Normal guifg=#CCCCFF                "文字色
 "+---+--------+
 "| # | Indent |
 "+===+========+
@@ -358,6 +379,9 @@ set noswapfile                         "swapFileを作らない
 set ambiwidth=double                   "全角記号の表示設定
 set clipboard+=unnamed,autoselect      "クリップボードを有効化
 set backspace=indent,eol,start         "BSを有効化
+
+" MarkDown不可視文字くそ
+set conceallevel=0
 "+---+------------+
 "| # | Vim search |
 "+===+============+
@@ -449,7 +473,7 @@ noremap <C-right> :bnext<CR>
 "+===+======================+
 nnoremap Q gq
 "+---+----------------------------------+
-"| # | カーソルがあるページ以外を閉じる |
+"| # | カーソルがあるWindow以外を閉じる |
 "+===+==================================+
 nnoremap <Space>o :only<CR>
 "+---+----------------------+

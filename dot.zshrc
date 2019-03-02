@@ -1,4 +1,4 @@
-#Nerd-fonts = 16pt Literation Mono Nerd Font Complete.
+# Nerd-fonts = 16pt Literation Mono Nerd Font Complete.
 # vim: ft=zsh
 
 #おまじない
@@ -188,9 +188,9 @@ alias eman='LANG=C man'
 alias gf='grep -F'
 alias home='cd ~'
 alias reload='exec $SHELL -l'
-#+---|-----+
-#| # | Git |
-#+===|=====+
+# +---|-----+
+# | # | Git |
+# +===|=====+
 alias sta="git status"
 alias add="git add"
 alias comi="git commit"
@@ -210,28 +210,28 @@ alias check="git checkout"
 alias ggrep="git grep"
 alias gclean="git clean"
 alias gdiff="git diff"
-###Linux Open Command
-#alias open='xdg-open'
-###Linux Open Command(GNOME)
-#alias open='gnome-open'
+### Linux Open Command
+# alias open='xdg-open'
+### Linux Open Command(GNOME)
+# alias open='gnome-open'
 
-#+---|-----------+
-#| # | Rust PATH |
-#+---|-----------+
+# +---|-----------+
+# | # | Rust PATH |
+# +---|-----------+
 export PATH="$HOME/.cargo/bin:$PATH"
-#+---|-------------------------------+
-#| # | added by Miniconda3 installer |
-#+---|-------------------------------+
-export PATH="/Users/user/miniconda3/bin:$PATH"
-#+---|------------+
-#| # | golang path|
-#+---|------------+
+# +---|-------------------------------+
+# | # | added by Miniconda3 installer |
+# +---|-------------------------------+
+export PATH="$HOME/miniconda3/bin:$PATH"
+# +---|-------------+
+# | # | golang PATH |
+# +---|-------------+
 export GOPATH=$HOME/dev/go/
 export PATH=$PATH:$GOPATH/bin
 #export PATH=$PATH:/usr/local/bin/go
-#+---|-------------------------------+
-#| # | Internet Search from terminal |
-#+---|-------------------------------+
+# +---|-------------------------------+
+# | # | Internet Search from terminal |
+# +---|-------------------------------+
 net(){
     if [ $(echo $1 | egrep "^-[cfs]$") ]; then
         local opt="$1"
