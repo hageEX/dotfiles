@@ -357,6 +357,7 @@ hi Normal guibg=#000022                "背景色
 hi Normal guifg=#B3ADA5
 " hi Normal guibg=#2B2B2B                "背景色
 " hi Normal guifg=#CCCCFF                "文字色
+hi CursorLineNr guifg=#6b8e23
 "+---+--------+
 "| # | Indent |
 "+===+========+
