@@ -20,6 +20,7 @@ zstyle ':vcs_info:*' actionformats '%F{red}(%s)-[%b|%a]%f'
 PROMPT='%F{40}╭%f%F{cyan}%K{16} root@MacBookPro %k%f%F{16}%K{cyan}%k%f%F{16}%K{cyan}  %c%k%f%F{cyan} %f %F{34}%f$vcs_info_msg_0_%F{34}%f
 %F{46}╰─%f%F{10}%f%F{149}%f '
 
+
 #PROMPT='%F{124}user@xxx%f:%F{90}[%c]%f:$ '
 #RPROMPT=''
 

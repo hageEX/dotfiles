@@ -1,9 +1,9 @@
-" color scheme from
+" Color scheme from
 " Development build (https://github.com/AlessandroYorba/De
 " spacio/tree/nightly)
 " Thank you. I like this.
 "
-" :95 ~ .vimrc
+" :98 ~ .vimrc
 
 "DESPACIO:
 set background=dark
@@ -120,10 +120,10 @@ endfunction
 
 " return '%' . c . '* ' . mode_name . ' %* %<%F%m%h%=%w%r %18([%{toupper(&ft)}][%l/%L]%)'
 
-hi User1 gui=bold guibg=darkgreen guifg=gray
-hi User2 gui=bold guibg=blue guifg=gray
-hi User3 gui=bold guibg=coral guifg=gray
-hi User4 gui=bold guibg=orange guifg=black
+hi User1 gui=bold guibg=darkgreen guifg=gray " Insert Mode
+hi User2 gui=bold guibg=blue guifg=gray      " Normal Mode
+hi User3 gui=bold guibg=coral guifg=gray     " Replace Mode
+hi User4 gui=bold guibg=orange guifg=black   " Visual Mode
 
 set statusline=%!SetStatusLine()
 
@@ -175,6 +175,7 @@ hi Normal guifg=#B3ADA5
 " hi Normal guibg=#2B2B2B                "背景色
 " hi Normal guifg=#CCCCFF                "文字色
 hi CursorLineNr guifg=#6b8e23
+" hi Number guifg=#cd5c5c
 "+---+--------+
 "| # | Indent |
 "+===+========+
@@ -290,9 +291,9 @@ noremap <C-right> :bnext<CR>
 "| # | Exモードの再割り当て |
 "+===+======================+
 nnoremap Q gq
-"+---+----------------------------------+
-"| # | カーソルがあるWindow以外を閉じる |
-"+===+==================================+
+"+---+------------------------------------------+
+"| # | カーソルがあるウインドウ以外を全て閉じる |
+"+===+==========================================+
 nnoremap <Space>o :only<CR>
 "+---+----------------------+
 "| # | タブの新規作成、移動 |

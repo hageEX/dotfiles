@@ -58,7 +58,7 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-" TypeScript-lsp?
+" TypeScript-lsp
 Plug 'ryanolsonx/vim-lsp-typescript'
 " JavaScript-lsp
 Plug 'ryanolsonx/vim-lsp-javascript'
@@ -333,7 +333,6 @@ set virtualedit=onemore
 set term=xterm-256color
 syntax enable
 set termguicolors
-"+---+--------------+
 "| # | Mouse Enable |
 "+===+==============+
 set mouse=a
@@ -353,11 +352,13 @@ hi CursorLineNr term=standout ctermfg=109 ctermbg=15
 " 対括弧強調表示
 hi MatchParen ctermbg=21
 " set termguicolors時に反映
-hi Normal guibg=#000022                "背景色
+"hi Normal guibg=#000044                "背景色
+hi Normal guibg=NONE
 hi Normal guifg=#B3ADA5
-" hi Normal guibg=#2B2B2B                "背景色
-" hi Normal guifg=#CCCCFF                "文字色
+"hi Normal guibg=#2B2B2B              "背景色
+"hi Normal guifg=#CCCCFF              "文字色
 hi CursorLineNr guifg=#6b8e23
+"hi Number guifg=#cd5c5c
 "+---+--------+
 "| # | Indent |
 "+===+========+

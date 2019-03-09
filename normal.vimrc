@@ -4,7 +4,7 @@
 call plug#begin()
 
 "表作成を補助する
-Plug 'dhruvasagar/vim-table-mode', {'on': 'TableModeEnableToggle'}     
+Plug 'dhruvasagar/vim-table-mode', {'on': 'TableModeEnableToggle'}
 "ツリー構造を表示する
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 "statuslineを強化
@@ -19,9 +19,9 @@ Plug 'simeji/winresizer'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 ".jsonファイルを見やすく
-Plug 'elzr/vim-json', {'for': 'json'}        
+Plug 'elzr/vim-json', {'for': 'json'}
 "コーディング規約をチェック
-Plug 'vim-syntastic/syntastic', {'for': 'java'}      
+Plug 'vim-syntastic/syntastic', {'for': 'java'}
 "暗黒の力で補完
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/neosnippet'
@@ -58,14 +58,14 @@ imap <expr><CR> neosnippet#expandable() ? "<Plug>(neosnippet_expand_or_jump)" : 
 " タブキーで補完候補の選択. スニペット内のジャンプもタブキーでジャンプ・・・・・・③
 imap <expr><TAB> pumvisible() ? "<C-n>" : neosnippet#jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
 
-"|---------|
-"|NERDTree |
-"|=========|
+"+----------+
+"| NERDTree |
+"+==========+
 nnoremap <space>n :NERDTree<CR>
 "|----------|
 "| QuickRun |
 "|==========|
-nnoremap \r :write<CR>:QuickRun -mode n<CR>            
+nnoremap \r :write<CR>:QuickRun -mode n<CR>
 xnoremap \r :<C-U>write<CR>gv:QuickRun -mode v<CR>
 let g:quickrun_config = {}
 let g:quickrun_config={'*': {'split': 'vertical'}}
@@ -75,9 +75,9 @@ let g:quickrun_config={'*': {'split': 'vertical'}}
 "    \ }
 set splitright
 let g:quickrun_no_default_key_mappings = 1
-"|-----------|
+"+-----------+
 "| TableMode |
-"|===========|
+"+===========+
 let g:table_mode_corner_corner='+'
 let g:table_mode_header_fillchar='='
 let g:table_mode_corner = '|'
@@ -104,33 +104,33 @@ let g:lightline = {
       \ }
 
 
-"'modified' 
+"'modified'
 "
 
 "|---+------------------|
 "| # | カラーテーマ設定 |
 "|===+==================|
 colorscheme despacio
-"|---+----------|
-"| # | 各種設定 |
-"|===+==========|
+"| ---+---------- +
+"| #  | 各種設定  |
+"| ===+========== +
 filetype plugin indent on
 set ruler
-set number                             
-set title                              
-syntax on                               
-set belloff=all                        
-set virtualedit=onemore                 
+set number
+set title
+syntax on
+set belloff=all
+set virtualedit=onemore
 "set t_Co=256
 set term=xterm-256color
 "+---+--------------+
 "| # | マウス有効化 |
 "+===+==============+
-set mouse=a                            
-set ttymouse=xterm2                    
-"|---+------|
-"| # | 配色 |
-"|===+======|
+set mouse=a
+set ttymouse=xterm2
+"| ---+------+
+"| #  | 配色 |
+"| ===+======+
 "カーソルライン
 set cursorline
 hi clear cursorline
@@ -144,11 +144,11 @@ hi CursorLineNr term=standout ctermfg=109 ctermbg=15
 "| # | インデント |
 "+===+============+
 set expandtab
-set autoindent                         
-set smartindent                         
+set autoindent
+set smartindent
 set shiftwidth=4
 set softtabstop=4
-set tabstop=8                          
+set tabstop=8
 "+---+--------+
 "| # | その他 |
 "+===+========+
@@ -164,7 +164,7 @@ set backspace=indent,eol,start         "BSを有効化
 "+---+------+
 "| # | 検索 |
 "+===+======+
-set hlsearch                           
+set hlsearch
 set ignorecase                         "検索時に大文字小文字を区別しない
 set smartcase                          "検索時に大文字を使った時は区別する
 set incsearch                          "検索時に一文字入力毎に検索を行う
@@ -180,7 +180,7 @@ set whichwrap=b,s,h,l,<,>,[,],~        "カーソルの左右移動で行を移�
 set wildmenu                           "コマンドモードの補完
 set scrolloff=5                        "スクロール時に上下５行の視界を確保
 "+---+--------------------------------+
-"| # | 挿入モード mac emacs　カーソル |
+"| # | 挿入モード mac emacs カーソル |
 "+===+================================+
 inoremap<silent> <C-p> <Up>
 inoremap<silent> <C-n> <Down>
@@ -196,16 +196,16 @@ noremap<silent> <C-n> <Down>
 noremap<silent> <C-f> <Right>
 noremap<silent> <C-b> <Left>
 noremap<silent> <C-d> <Del>
-"+---+--------------------------+
-"| # | 挿入モード vim　カーソル |
-"+===+==========================+
+"+---+-------------------------+
+"| # | 挿入モード vim カーソル |
+"+===+=========================+
 inoremap<silent> <C-k> <Up>
 inoremap<silent> <C-j> <Down>
 inoremap<silent> <C-l> <Right>
 inoremap<silent> <C-h> <Left>
-"+---+------------------------------+
-"| # | ノーマルモード vim　カーソル |
-"+===+==============================+
+"+---+-----------------------------+
+"| # | ノーマルモード vim カーソル |
+"+===+=============================+
 noremap<silent> <C-k> <Up>
 noremap<silent> <C-j> <Down>
 noremap<silent> <C-l> <Right>
@@ -226,8 +226,8 @@ nnoremap <Space>q :q!<CR>
 "+---+------------------------------+
 "| # | インサートからノーマルへ移動 |
 "+===+==============================+
-inoremap<silent> jj <ESC>               
-"inoremap<silent> っj <ESC> 
+inoremap<silent> jj <ESC>
+"inoremap<silent> っj <ESC>
 "+---+--------------------+
 "| # | バッファの切り替え |
 "+===+====================+
