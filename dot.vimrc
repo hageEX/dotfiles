@@ -196,18 +196,13 @@ imap <expr><TAB>
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
 "+-------------+
 "| easy-motion |
 "+=============+
 " デフォルトのキーマッピングを無効に
 let g:EasyMotion_do_mapping = 0
 " f + 2文字 で画面全体を検索してジャンプ
-nmap f <plug>(easymotion-overwin-f2)
+nmap s <plug>(easymotion-overwin-f2)
 " 検索時、大文字小文字を区別しない
 let g:EasyMotion_smartcase = 1
 "+-----+
@@ -359,6 +354,9 @@ hi Normal guifg=#B3ADA5
 "hi Normal guifg=#CCCCFF              "文字色
 hi CursorLineNr guifg=#6b8e23
 "hi Number guifg=#cd5c5c
+hi Error guifg=#262626 guibg=red
+hi Todo guifg=#262626 guibg=#b8800b
+
 "+---+--------+
 "| # | Indent |
 "+===+========+
