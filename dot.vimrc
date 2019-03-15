@@ -10,8 +10,11 @@ call plug#begin()
 Plug 'dhruvasagar/vim-table-mode', {'on': 'TableModeEnableToggle'}
 " ツリー構造を表示する
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
-"statuslineを強化
-Plug 'itchyny/lightline.vim'
+" statuslineを強化
+"Plug 'itchyny/lightline.vim'
+" StatusLineを強化
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 " プログラムコードをvim上で実行する
 Plug 'thinca/vim-quickrun'
 " 対括弧を自動保管
@@ -24,12 +27,14 @@ Plug 'tpope/vim-fugitive'
 " .jsonファイルを見やすく
 Plug 'elzr/vim-json', {'for': 'json'}
 " NERDTreeなどでファイルにIconを表示する
-Plug 'ryanoasis/vim-devicons', {'on': 'NERDTreeToggle'}
-" 暗黒の力で補完
+Plug 'ryanoasis/vim-devicons'  ", {'on': 'NERDTreeToggle'}
+" 暗黒の力で補完, ファイルエクスプローラー
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+  Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
 else
   Plug 'Shougo/deoplete.nvim'
+  Plug 'Shougo/defx.nvim'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
@@ -65,7 +70,7 @@ Plug 'ryanolsonx/vim-lsp-javascript'
 " (M)マークダウンをサポート
 Plug 'plasticboy/vim-markdown', {'for': ['markdown', 'html', 'js']}
 " (M)マークダウンをプレビュー表示
-Plug 'kannokanno/previm'
+Plug 'kannokanno/previm', {'for': ['markdown', 'html', 'js']}
 " (M+)vim上のURLや文字列をブラウザで検索
 Plug 'tyru/open-browser.vim'
 " vimのオートセーブを可能にする
@@ -109,7 +114,7 @@ let g:previm_enable_realtime = 1
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 let g:previm_open_cmd = 'open -a firefox'
 " ctrl mでプレビュー
-nnoremap <silent> <C-m> :PrevimOpen<CR>
+nnoremap <silent> M :PrevimOpen<CR>
 
 " gxで選択した文字列をブラウザ検索
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
@@ -307,6 +312,66 @@ endfunction
 
 
 "
+"+---|---------+
+"| # | airline |
+"+===|=========+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'default'
+"let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#whitespace#mixed_indent_algo = 1
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
+
+" tablineの区切り文字を設定
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+
+" 左側に使用されるセパレータ
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+" 右側に使用されるセパレータ
+let g:airline_right_sep = '⮂'
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.crypt = '🔒'		"暗号化されたファイル
+let g:airline_symbols.linenr = '¶'			"行
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.branch = '⭠'		"gitブランチ
+let g:airline_symbols.notexists = '∄'		"gitで管理されていない場合
+let g:airline_section_x =
+            \airline#section#create(['filetype'])
+let g:airline_section_a =
+            \airline#section#create(['mode', 'crypt'])
+" let g:airline_section_z =
+"             \airline#section#create(['linenr', 'maxlinenr'])
+let g:airline#extensions#default#layout = [
+            \ [ 'a', 'c', 'b' ],
+            \ [ 'x', 'y', 'z' ]
+            \ ]
+let g:airline_theme = 'simple'
+let g:airline_mode_map = {
+	\ 'n'  : 'N',
+	\ 'i'  : 'I',
+	\ 'R'  : 'R',
+	\ 'c'  : 'C',
+	\ 'v'  : 'v',
+	\ 'V'  : 'V',
+	\ '⌃V' : 'V(B)',
+	\ }
+let g:airline#extensions#branch#enabled = 1
+let g:airline_extensions = ['branch', 'tabline']
+let g:airline#extensions#branch#vcs_priority = ["git", "mercurial"]
+let g:airline#extensions#default#section_truncate_width = {
+            \ 'b': 79,
+            \ 'y': 88,
+            \ 'z': 20,
+            \ }
+let g:airline#extensions#fugitiveline#enabled = 1
+let g:airline_skip_empty_sections = 1
+let g:airline_powerline_fonts = 1
+
+" モード切り替え時の遅延を無くす？
+set ttimeoutlen=50
 "+---|------------+
 "| # | Colortheme |
 "+===|============+
@@ -348,14 +413,15 @@ hi CursorLineNr term=standout ctermfg=109 ctermbg=15
 hi MatchParen ctermbg=21
 " set termguicolors時に反映
 "hi Normal guibg=#000044                "背景色
-hi Normal guibg=NONE
+"hi Normal guibg=NONE
+hi Normal guibg=#000000
 hi Normal guifg=#B3ADA5
 "hi Normal guibg=#2B2B2B              "背景色
 "hi Normal guifg=#CCCCFF              "文字色
 hi CursorLineNr guifg=#6b8e23
 "hi Number guifg=#cd5c5c
 hi Error guifg=#262626 guibg=red
-hi Todo guifg=#262626 guibg=#b8800b
+hi Todo guifg=#262626 guibg=#dda0dd
 
 "+---+--------+
 "| # | Indent |

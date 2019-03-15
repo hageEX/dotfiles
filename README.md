@@ -1,7 +1,7 @@
-# Install Guide
+## Install Guide
 
 
-Vim-lsp
+### [Vim-lsp](https://github.com/prabirshrestha/vim-lsp)
 ---
 
 > Rust
@@ -13,7 +13,7 @@ rustup install nightly
 rustup component add rls rust-analysis rust-src
 ```
 
-> Python
+>[python](https://github.com/palantir/python-language-server)
 ```shell
 pip install python-language-server
 ```
@@ -29,7 +29,7 @@ npm install -g typescript typescript-language-server
 ```
 <br>
 
-(Git)ローカルファイルを最新のリモートファイルで強制的に上書き更新
+### (Git)ローカルファイルを最新のリモートファイルで強制的に上書き更新
 ---
 >リモートの最新を取得
 
