@@ -10,7 +10,7 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 RPROMPT='%F{yellow}⏾%f%F{cyan}%K{clear} %D{%m/%d(%a)}  %D{%H:%M}%f%k'
-zstyle ':vcs_info:git:*' formats '%F{black}%K{028}⌖%b%k%f'
+zstyle ':vcs_info:git:*' formats '%F{black}%K{028}%f%F{003}⌖%b%k%f'
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "+"
 zstyle ':vcs_info:git:*' unstagedstr "-"
@@ -22,8 +22,8 @@ PROMPT='%F{40}╭%f%F{cyan}%K{16} root@MacBookPro %k%f%F{16}%K{cyan}%k%f%F
 
 
 
-#PROMPT='%F{1}us%f%F{178}er%f%F{11}@%f%F{2}x%f%F{4}x%f%F{53}x%f:%F{90}[%f%F{030}%~%f%F{90}]%f
-#%F{215} ❨◈ ❩ %f%F{030}%f '
+#PROMPT='%F{1}us%f%F{178}er%f%F{11}@%f%F{2}x%f%F{4}x%f%F{53}x%f:%F{101}[%f%F{030}%~%f%F{101}]%f
+#%F{215}   ❨%f%F{020}◈%f%F{215} ❩ %f '
 #  %F{220}%f  %F{124}%f
 #   ± ●
 #

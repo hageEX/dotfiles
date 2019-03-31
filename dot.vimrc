@@ -379,6 +379,7 @@ colorscheme despacio
 "+---|---------+
 "| # | Setting |
 "+===|=========+
+filetype plugin on
 filetype plugin indent on
 set ruler
 set number
@@ -393,6 +394,7 @@ set virtualedit=onemore
 set term=xterm-256color
 syntax enable
 set termguicolors
+"+---+--------------+
 "| # | Mouse Enable |
 "+===+==============+
 set mouse=a
@@ -414,14 +416,16 @@ hi MatchParen ctermbg=21
 " set termguicolors時に反映
 "hi Normal guibg=#000044                "背景色
 "hi Normal guibg=NONE
-hi Normal guibg=#000000
-hi Normal guifg=#B3ADA5
+"hi Normal guibg=#000000
+"hi Normal guifg=#B3ADA5
+"hi Normal guibg=#262626
+hi Normal guifg=#C6C6C6
 "hi Normal guibg=#2B2B2B              "背景色
 "hi Normal guifg=#CCCCFF              "文字色
-hi CursorLineNr guifg=#6b8e23
+hi CursorLineNr guifg=#6B8E23
 "hi Number guifg=#cd5c5c
 hi Error guifg=#262626 guibg=red
-hi Todo guifg=#262626 guibg=#dda0dd
+hi Todo guifg=#262626 guibg=#DDA0DD
 
 "+---+--------+
 "| # | Indent |
@@ -551,7 +555,7 @@ nnoremap H gT
 "+---+------------+
 "| # | 日本語入力 |
 "+===+============+
-"nnoremap い i
+nnoremap い i
 "noremap<silent> <C-i> i
 "+---|-------------------+
 "| # | Visual more ++ -- |
