@@ -20,10 +20,16 @@ zstyle ':vcs_info:*' actionformats '%F{red}(%s)-[%b|%a]%f'
 PROMPT='%F{40}╭%f%F{cyan}%K{16} root@MacBookPro %k%f%F{16}%K{cyan}%k%f%F{16}%K{cyan}  %c%k%f%F{cyan} %f %F{34}%f$vcs_info_msg_0_%F{34}%f
 %F{46}╰─%f%F{10}%f%F{149}%f '
 
+# parrot風プロンプト
+#PROMPT='%F{red}┌─[%f%F{lightgreen}%n%f%F{226}@%f%F{50}parrot%F{red}]─%f%f%F{red}[%f%F{green}%~%f%F{red}]
+#└──╼%f%F{226} $%f '
+#RPROMPT='%F{red}[%f%F{yellow}⏾%f%F{green}%K{clear} %D{%m/%d(%a)}%F{red}]─[%f%F{lightgreen} %D{%H:%M}%f%k%F{red}]%f'
 
-
+# カラフルプロンプト
 #PROMPT='%F{1}us%f%F{178}er%f%F{11}@%f%F{2}x%f%F{4}x%f%F{53}x%f:%F{101}[%f%F{030}%~%f%F{101}]%f
 #%F{215}   ❨%f%F{020}◈%f%F{215} ❩ %f '
+
+
 #  %F{220}%f  %F{124}%f
 #   ± ●
 #
@@ -194,6 +200,7 @@ alias eman='LANG=C man'
 alias gf='grep -F'
 alias home='cd ~'
 alias reload='exec $SHELL -l'
+alias apt='sudo apt'
 # +---|-----+
 # | # | Git |
 # +===|=====+
@@ -212,7 +219,7 @@ alias gmv="git mv"
 alias grm="git rm"
 alias fetch="git fetch"
 alias remote="git remote"
-alias check="git checkout"
+alias cout="git checkout"
 alias ggrep="git grep"
 alias gclean="git clean"
 alias gdiff="git diff"

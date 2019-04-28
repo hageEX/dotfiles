@@ -61,12 +61,12 @@ Plug 'easymotion/vim-easymotion'
 " vim-lsp
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-" TypeScript-lsp
-Plug 'ryanolsonx/vim-lsp-typescript'
-" JavaScript-lsp
-Plug 'ryanolsonx/vim-lsp-javascript'
+"Plug 'prabirshrestha/asyncomplete.vim'
+"Plug 'prabirshrestha/asyncomplete-lsp.vim'
+"" TypeScript-lsp
+"Plug 'ryanolsonx/vim-lsp-typescript'
+"" JavaScript-lsp
+"Plug 'ryanolsonx/vim-lsp-javascript'
 " (M)マークダウンをサポート
 Plug 'plasticboy/vim-markdown', {'for': ['markdown', 'html', 'js']}
 " (M)マークダウンをプレビュー表示
@@ -310,8 +310,6 @@ function! LightlineMode()
   return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
-
-"
 "+---|---------+
 "| # | airline |
 "+===|=========+
@@ -414,15 +412,25 @@ hi CursorLineNr term=standout ctermfg=109 ctermbg=15
 " 対括弧強調表示
 hi MatchParen ctermbg=21
 " set termguicolors時に反映
-"hi Normal guibg=#000044                "背景色
-"hi Normal guibg=NONE
-"hi Normal guibg=#000000
-"hi Normal guifg=#B3ADA5
 "hi Normal guibg=#262626
 hi Normal guifg=#C6C6C6
-"hi Normal guibg=#2B2B2B              "背景色
-"hi Normal guifg=#CCCCFF              "文字色
-hi CursorLineNr guifg=#6B8E23
+hi CursorLineNr guifg=#262626
+hi CursorLine guibg=#330033 "660033
+
+"hi cursorlinenr guifg=#ffd700
+"hi LineNr guifg=darkcyan
+"hi LineNr guibg=#000011
+"hi Normal guibg=#000022
+
+hi Normal guibg=#000111
+hi LineNr guibg=#262626
+"hi LineNr guifg=#c6c6c6
+
+" 落ち着いた色合いに変更
+"hi Normal guibg=#2e3436
+"hi LineNr guibg=#262626
+hi LineNr guifg=#b3ada5
+
 "hi Number guifg=#cd5c5c
 hi Error guifg=#262626 guibg=red
 hi Todo guifg=#262626 guibg=#DDA0DD
@@ -439,6 +447,7 @@ set tabstop=8
 "+---+-----+
 "| # | etc |
 "+===+=====+
+set hidden                             "保存せずにファイルを切り替え可能に
 set directory=/home/SWAP               "swapFileを一箇所に集める
 set history=100                        "履歴の保存件数を指定
 set encoding=utf-8                     "文字コードを指定
@@ -475,7 +484,7 @@ hi DoubleByteSpace term=underline ctermbg=245
 match DoubleByteSpace /　/
 " 不可視文字を表示、表示文字を設定
 "set list
-"set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+" 変更用 [ ↲  ]
 set listchars=tab:»-,trail:-,eol:↵,extends:»,precedes:«,nbsp:%
 " 不可視文字を非表示にする
 "set nolist
@@ -488,7 +497,7 @@ inoremap<silent> <C-p> <Up>
 inoremap<silent> <C-n> <Down>
 inoremap<silent> <C-f> <Right>
 inoremap<silent> <C-b> <Left>
-"inoremap<silent> <c-h> <bs>
+inoremap<silent> <c-h> <bs>
 inoremap<silent> <C-d> <Del>
 "+---+---------------------------+
 "| # | Cursor(Normal): mac emacs |
@@ -501,10 +510,10 @@ noremap<silent> <C-b> <Left>
 "+---+---------------------+
 "| # | Cursor(Insert): vim |
 "+===+=====================+
-inoremap<silent> <C-k> <Up>
-inoremap<silent> <C-j> <Down>
-inoremap<silent> <C-l> <Right>
-inoremap<silent> <C-h> <Left>
+"inoremap<silent> <C-k> <Up>
+"inoremap<silent> <C-j> <Down>
+"inoremap<silent> <C-l> <Right>
+"inoremap<silent> <C-h> <Left>
 "+---+---------------------+
 "| # | Cursor(Normal): vim |
 "+===+=====================+
@@ -529,15 +538,19 @@ nnoremap <Space>q :q!<CR>
 "+---+------------------------------+
 "| # | インサートからノーマルへ移動 |
 "+===+==============================+
-inoremap<silent> jj <ESC>
+"inoremap<silent> jj <ESC>
 "inoremap<silent> っj <ESC>
 "+---+---------------+
 "| # | Change Buffer |
 "+===+===============+
-noremap <f1> :bprev<CR>
-noremap <f2> :bnext<CR>
+nnoremap H :bprev<CR>
+nnoremap L :bnext<CR>
 noremap <C-left> :bprev<CR>
 noremap <C-right> :bnext<CR>
+" Delete buffer
+nnoremap <Space>d :bd!<CR>
+" New buffer
+nnoremap <Space>t :enew<CR>
 "+---+----------------------+
 "| # | Exモードの再割り当て |
 "+===+======================+
@@ -549,9 +562,10 @@ nnoremap <Space>o :only<CR>
 "+---+----------------------+
 "| # | タブの新規作成、移動 |
 "+===+======================+
-nnoremap <Space>t :tabnew<CR>
-nnoremap L gt
-nnoremap H gT
+" bufferがメインでの使用になるため未割り当て
+"nnoremap <Space>  :tabnew<CR>
+nnoremap <f1> gt
+nnoremap <f2> gT
 "+---+------------+
 "| # | 日本語入力 |
 "+===+============+
@@ -567,4 +581,20 @@ vnoremap <c-x> <c-x>gv
 "+===|================================+
 map n nzz
 map N Nzz
+"+---|-----------------------------------+
+"| # | プロジェクト固有の設定を可能にする|
+"+===|===================================+
+" .local.vimrcをプロジェクトディレクトリに作成することで使用可能
+augroup vimrc-local
+  autocmd!
+  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
+augroup END
+
+function! s:vimrc_local(loc)
+  let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
+  for i in reverse(filter(files, 'filereadable(v:val)'))
+    source `=i`
+  endfor
+endfunction
+
 
