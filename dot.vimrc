@@ -30,13 +30,13 @@ Plug 'elzr/vim-json', {'for': 'json'}
 Plug 'ryanoasis/vim-devicons'  ", {'on': 'NERDTreeToggle'}
 " 暗黒の力で補完, ファイルエクスプローラー
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-  Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
+    Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+    Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
 else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'Shougo/defx.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'Shougo/defx.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
 endif
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
@@ -59,14 +59,14 @@ Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
 " カーソルの移動を快適にする
 Plug 'easymotion/vim-easymotion'
 " vim-lsp
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-"Plug 'prabirshrestha/asyncomplete.vim'
-"Plug 'prabirshrestha/asyncomplete-lsp.vim'
-"" TypeScript-lsp
-"Plug 'ryanolsonx/vim-lsp-typescript'
-"" JavaScript-lsp
-"Plug 'ryanolsonx/vim-lsp-javascript'
+Plug 'prabirshrestha/async.vim', {'for': ['python', 'rust', 'javascript']}
+Plug 'prabirshrestha/vim-lsp', {'for': ['python', 'rust', 'javascript']}
+Plug 'prabirshrestha/asyncomplete.vim', {'for': ['python', 'rust', 'javascript']}
+Plug 'prabirshrestha/asyncomplete-lsp.vim', {'for': ['python', 'rust', 'javascript']}
+" TypeScript-lsp
+Plug 'ryanolsonx/vim-lsp-typescript'
+" JavaScript-lsp
+Plug 'ryanolsonx/vim-lsp-javascript'
 " (M)マークダウンをサポート
 Plug 'plasticboy/vim-markdown', {'for': ['markdown', 'html', 'js']}
 " (M)マークダウンをプレビュー表示
@@ -142,10 +142,10 @@ endif
 " //Rust
 if executable('rls')
     au User lsp_setup call lsp#register_server({
-        \ 'name': 'rls',
-        \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
-        \ 'whitelist': ['rust'],
-        \ })
+                \ 'name': 'rls',
+                \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
+                \ 'whitelist': ['rust'],
+                \ })
 endif
 
 " //TypeScript
@@ -159,12 +159,12 @@ if executable('typescript-language-server')
 endif
 
 " //JavaScript
- au User lsp_setup call lsp#register_server({
-    \ 'name': 'javascript support using typescript-language-server',
-    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-    \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
-    \ 'whitelist': ['javascript', 'javascript.jsx'],
-    \ })
+au User lsp_setup call lsp#register_server({
+            \ 'name': 'javascript support using typescript-language-server',
+            \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+            \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
+            \ 'whitelist': ['javascript', 'javascript.jsx'],
+            \ })
 
 "+------------+
 "| neovim-lsp |
@@ -195,11 +195,11 @@ xmap <C-@>     <Plug>(neosnippet_expand_target)
 " SuperTab like snippets behavior.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <expr><TAB>
- \ pumvisible() ? "\<C-n>" :
- \ neosnippet#expandable_or_jumpable() ?
- \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+            \ pumvisible() ? "\<C-n>" :
+            \ neosnippet#expandable_or_jumpable() ?
+            \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+            \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 "+-------------+
 "| easy-motion |
@@ -227,10 +227,10 @@ xnoremap \r :<C-U>write<CR>gv:QuickRun -mode v<CR>
 let g:quickrun_config={'*': {'split': 'vertical'}}
 " 左右分割する場合は、下の/buffer/splitの行をコメントアウト
 let g:quickrun_config._={ 'runner':'job',
-    \       "runner/job/updatetime" : 10,
-    \       "outputter/buffer/close_on_empty" : 1,
-    \       "outputter/buffer/split" : ":botright 8",
-    \ }
+            \       "runner/job/updatetime" : 10,
+            \       "outputter/buffer/close_on_empty" : 1,
+            \       "outputter/buffer/split" : ":botright 8",
+            \ }
 
 " <C-c> で実行を強制終了させる
 " quickrun.vim が実行していない場合には <C-c> を呼び出す
@@ -263,28 +263,28 @@ let g:winresizer_start_key = '\'
 set laststatus=2
 set showcmd
 let g:lightline = {
-        \ 'colorscheme': 'jellybeans',
-        \ 'mode_map': {'c': 'NORMAL'},
-        \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ], [ 'filename' ], [ 'fugitive' ] ],
-        \   'right': [ [''], ['percent'], ['fileformat', 'fileencoding', 'filetype']]
-        \ },
-        \ 'tab': {
-        \   'active': ['', 'filename', 'modified'],
-        \   'inactive': ['', 'filename', 'modified']
-        \ },
-        \ 'component_function': {
-        \   'fugitive': 'LightlineFugitive',
-        \   'fileformat': 'LightlineFileformat',
-        \   'filetype': 'LightlineFiletype',
-        \   'fileencoding': 'LightlineFileencoding',
-        \   'mode': 'LightlineMode'
-        \ },
-        \ 'separator': {'left': '', 'right': ''},
-        \ 'subseparator': {'left': '' , 'right': ''},
-        \ 'tabline_separator': {'left':'|', 'right': '|'},
-        \ 'tabline_subseparator': {'left':'|', 'right': '|'},
-        \ }
+            \ 'colorscheme': 'jellybeans',
+            \ 'mode_map': {'c': 'NORMAL'},
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ], [ 'filename' ], [ 'fugitive' ] ],
+            \   'right': [ [''], ['percent'], ['fileformat', 'fileencoding', 'filetype']]
+            \ },
+            \ 'tab': {
+            \   'active': ['', 'filename', 'modified'],
+            \   'inactive': ['', 'filename', 'modified']
+            \ },
+            \ 'component_function': {
+            \   'fugitive': 'LightlineFugitive',
+            \   'fileformat': 'LightlineFileformat',
+            \   'filetype': 'LightlineFiletype',
+            \   'fileencoding': 'LightlineFileencoding',
+            \   'mode': 'LightlineMode'
+            \ },
+            \ 'separator': {'left': '', 'right': ''},
+            \ 'subseparator': {'left': '' , 'right': ''},
+            \ 'tabline_separator': {'left':'|', 'right': '|'},
+            \ 'tabline_subseparator': {'left':'|', 'right': '|'},
+            \ }
 
 function! LightlineFugitive()
     if exists('*fugitive#head')
@@ -295,19 +295,19 @@ function! LightlineFugitive()
 endfunction
 
 function! LightlineFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
+    return winwidth(0) > 70 ? &fileformat : ''
 endfunction
 
 function! LightlineFiletype()
-  return winwidth(0) > 50 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+    return winwidth(0) > 50 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
 endfunction
 
 function! LightlineFileencoding()
-  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+    return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
 endfunction
 
 function! LightlineMode()
-  return winwidth(0) > 60 ? lightline#mode() : ''
+    return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
 "+---|---------+
@@ -318,7 +318,7 @@ let g:airline#extensions#tabline#formatter = 'default'
 "let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
 if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
+    let g:airline_symbols = {}
 endif
 
 " tablineの区切り文字を設定
@@ -348,14 +348,14 @@ let g:airline#extensions#default#layout = [
             \ ]
 let g:airline_theme = 'simple'
 let g:airline_mode_map = {
-	\ 'n'  : 'N',
-	\ 'i'  : 'I',
-	\ 'R'  : 'R',
-	\ 'c'  : 'C',
-	\ 'v'  : 'v',
-	\ 'V'  : 'V',
-	\ '⌃V' : 'V(B)',
-	\ }
+            \ 'n'  : 'N',
+            \ 'i'  : 'I',
+            \ 'R'  : 'R',
+            \ 'c'  : 'C',
+            \ 'v'  : 'v',
+            \ 'V'  : 'V',
+            \ '⌃V' : 'V(B)',
+            \ }
 let g:airline#extensions#branch#enabled = 1
 let g:airline_extensions = ['branch', 'tabline']
 let g:airline#extensions#branch#vcs_priority = ["git", "mercurial"]
@@ -401,7 +401,6 @@ set ttymouse=xterm2
 "| # | Colors |
 "+===|========+
 " カーソルライン
-set cursorline
 hi clear cursorline
 " その他
 "hi Comment ctermfg=242                "コメント
@@ -415,7 +414,12 @@ hi MatchParen ctermbg=21
 "hi Normal guibg=#262626
 hi Normal guifg=#C6C6C6
 hi CursorLineNr guifg=#262626
-hi CursorLine guibg=#330033 "660033
+" 行の背景色
+set cursorline
+hi CursorLine guibg=#330033
+" 列の背景色
+set cursorcolumn
+hi CursorColumn guibg=#220000
 
 "hi cursorlinenr guifg=#ffd700
 "hi LineNr guifg=darkcyan
@@ -449,7 +453,7 @@ set tabstop=8
 "+===+=====+
 set hidden                             "保存せずにファイルを切り替え可能に
 set directory=/home/SWAP               "swapFileを一箇所に集める
-set history=100                        "履歴の保存件数を指定
+set history=10000                      "履歴の保存件数を指定
 set encoding=utf-8                     "文字コードを指定
 set fileencodings=utf-8,sjis
 set fileformats=unix,dos,mac
@@ -586,15 +590,15 @@ map N Nzz
 "+===|===================================+
 " .local.vimrcをプロジェクトディレクトリに作成することで使用可能
 augroup vimrc-local
-  autocmd!
-  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
+    autocmd!
+    autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
 augroup END
 
 function! s:vimrc_local(loc)
-  let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
-  for i in reverse(filter(files, 'filereadable(v:val)'))
-    source `=i`
-  endfor
+    let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
+    for i in reverse(filter(files, 'filereadable(v:val)'))
+        source `=i`
+    endfor
 endfunction
 
 
