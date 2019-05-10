@@ -40,8 +40,9 @@ else
 endif
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/vimshell.vim'
 " 非同期実行を可能にする
-"Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 " 曖昧検索
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
@@ -81,6 +82,19 @@ call plug#end()
 "| # | Plugin Setting |
 "+===|================+
 
+"+----------+
+"| vimshell |
+"+----------+
+nnoremap <Space>s :VimShellPop<CR>
+let g:vimshell_popup_height = 30
+		let g:vimshell_prompt_expr =
+		\ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
+		let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
+" vimshellの状態に関わらず、<C-w>によって画面移動を可能にする
+autocmd FileType vimshell call s:vimshell_settings()
+function! s:vimshell_settings()
+  inoremap <buffer><C-w> <Esc><C-w>
+endfunction
 "+-----+
 "| ale |
 "+=====+
@@ -94,7 +108,7 @@ nmap <silent> K <Plug>(ale_previous_wrap)
 "| vim-auto-save |
 "+===============+
 " オートセーブが使いたくなったときはこちらー！（浜田風）
-let g:auto_save = 1
+let g:auto_save = 0
 let g:auto_save_in_insert_mode = 0
 "+------------+
 "| (M)arkDown |
@@ -151,11 +165,11 @@ endif
 " //TypeScript
 if executable('typescript-language-server')
     au User lsp_setup call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-        \ 'whitelist': ['typescript', 'typescript.tsx'],
-        \ })
+                \ 'name': 'typescript-language-server',
+                \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+                \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+                \ 'whitelist': ['typescript', 'typescript.tsx'],
+                \ })
 endif
 
 " //JavaScript
@@ -421,10 +435,10 @@ hi CursorLine guibg=#330033
 set cursorcolumn
 hi CursorColumn guibg=#220000
 
-"hi cursorlinenr guifg=#ffd700
-"hi LineNr guifg=darkcyan
-"hi LineNr guibg=#000011
-"hi Normal guibg=#000022
+" 行番号が振られていない、テキストのない場所の色
+"hi NonText guibg=#111000
+" 分割の区切りの色
+hi VertSplit guibg=#000111
 
 hi Normal guibg=#000111
 hi LineNr guibg=#262626
@@ -479,6 +493,7 @@ nmap / /\v
 "+---+--------------+
 "| # | ちょっと便利 |
 "+===+==============+
+set shortmess-=S                       " 検索時の総マッチ数と現在の位置を表示する
 set showmatch matchtime=1              "対応するカッコを一瞬表示
 set whichwrap=b,s,h,l,<,>,[,],~        "カーソルの左右移動で行を移動可能にする
 set wildmenu                           "コマンドモードの補完

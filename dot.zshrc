@@ -21,9 +21,9 @@ PROMPT='%F{40}╭%f%F{cyan}%K{16} root@MacBookPro %k%f%F{16}%K{cyan}%k%f%F
 %F{46}╰─%f%F{10}%f%F{149}%f '
 
 # parrot風プロンプト
-#PROMPT='%F{red}┌─[%f%F{lightgreen}%n%f%F{226}@%f%F{50}parrot%F{red}]─%f%f%F{red}[%f%F{green}%~%f%F{red}]
+#PROMPT='%F{red}┌─[%f%F{46}%n%f%F{226}@%f%F{50}parrot%F{red}]─%f%f%F{red}[%f%F{green}%~%f%F{red}]
 #└──╼%f%F{226} $%f '
-#RPROMPT='%F{red}[%f%F{yellow}⏾%f%F{green}%K{clear} %D{%m/%d(%a)}%F{red}]─[%f%F{lightgreen} %D{%H:%M}%f%k%F{red}]%f'
+#RPROMPT='%F{red}[%f%F{yellow}⏾%f%F{green}%K{clear} %D{%m/%d(%a)}%F{red}]─[%f%F{46} %D{%H:%M}%f%k%F{red}]%f'
 
 # カラフルプロンプト
 #PROMPT='%F{1}us%f%F{178}er%f%F{11}@%f%F{2}x%f%F{4}x%f%F{53}x%f:%F{101}[%f%F{030}%~%f%F{101}]%f
@@ -236,6 +236,8 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # | # | added by Miniconda3 installer |
 # +---|-------------------------------+
 export PATH="$HOME/miniconda3/bin:$PATH"
+# Python3 PATH
+# export PYTHONPATH='/usr/bin/python3$PYTHONPATH'
 # +---|-------------+
 # | # | golang PATH |
 # +---|-------------+
@@ -250,7 +252,8 @@ net(){
         local opt="$1"
         shift
     fi
-    local url="https://www.google.co.jp/search?q=${*// /+}"
+#    local url="https://www.google.co.jp/search?q=${*// /+}"
+    local url="https://duckduckgo.com/?q=${*// /+}&t=ffab&ia=web"
     local app="/Applications"
     local c="${app}/chrome+.app"
     local f="${app}/Firefox.app"
