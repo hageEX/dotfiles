@@ -86,15 +86,16 @@ call plug#end()
 "| vimshell |
 "+----------+
 nnoremap <Space>s :VimShellPop<CR>
-let g:vimshell_popup_height = 30
-		let g:vimshell_prompt_expr =
-		\ 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
-		let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
+let g:vimshell_popup_command = 'vs'
+
 " vimshellの状態に関わらず、<C-w>によって画面移動を可能にする
 autocmd FileType vimshell call s:vimshell_settings()
 function! s:vimshell_settings()
-  inoremap <buffer><C-w> <Esc><C-w>
+    inoremap <buffer><C-w> <Esc><C-w>
 endfunction
+
+let g:vimshell_user_prompt = '"[" .$USER ."@VimShell]-[" .fnamemodify(getcwd(), ":~")."]"'
+let g:vimshell_prompt = " --> "
 "+-----+
 "| ale |
 "+=====+
@@ -453,6 +454,10 @@ hi LineNr guifg=#b3ada5
 hi Error guifg=#262626 guibg=red
 hi Todo guifg=#262626 guibg=#DDA0DD
 
+" VimShell
+hi VimShellUserPrompt guifg=cyan
+hi VimShellPrompt guifg=red
+hi VimShellDirectory guifg=#6699cc
 "+---+--------+
 "| # | Indent |
 "+===+========+
