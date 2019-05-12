@@ -252,8 +252,8 @@ net(){
         local opt="$1"
         shift
     fi
-#    local url="https://www.google.co.jp/search?q=${*// /+}"
-    local url="https://duckduckgo.com/?q=${*// /+}&t=ffab&ia=web"
+    local url="https://www.google.co.jp/search?q=${*// /+}"
+#    local url="https://duckduckgo.com/?q=${*// /+}&t=ffab&ia=web"
     local app="/Applications"
     local c="${app}/chrome+.app"
     local f="${app}/Firefox.app"

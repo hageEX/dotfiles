@@ -83,7 +83,7 @@ call plug#end()
 "+===|================+
 
 "+----------+
-"| vimshell |
+"| VimShell |
 "+----------+
 nnoremap <Space>s :VimShellPop<CR>
 let g:vimshell_popup_command = 'vs'
@@ -222,13 +222,13 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 " デフォルトのキーマッピングを無効に
 let g:EasyMotion_do_mapping = 0
 " f + 2文字 で画面全体を検索してジャンプ
-nmap s <plug>(easymotion-overwin-f2)
+nmap f <plug>(easymotion-overwin-f2)
 " 検索時、大文字小文字を区別しない
 let g:EasyMotion_smartcase = 1
-"+-----+
-"| fzf |
-"+=====+
-nnoremap <Space>f :Files<CR>
+"+--------+
+"| Denite |
+"+========+
+nnoremap <Space>f :Denite file<CR>
 "+----------+
 "| NERDTree |
 "+==========+
@@ -363,13 +363,13 @@ let g:airline#extensions#default#layout = [
             \ ]
 let g:airline_theme = 'simple'
 let g:airline_mode_map = {
-            \ 'n'  : 'N',
-            \ 'i'  : 'I',
-            \ 'R'  : 'R',
-            \ 'c'  : 'C',
-            \ 'v'  : 'v',
-            \ 'V'  : 'V',
-            \ '⌃V' : 'V(B)',
+            \ 'n'  : 'Normal',
+            \ 'i'  : 'Insert',
+            \ 'R'  : 'Replace',
+            \ 'c'  : 'Command',
+            \ 'v'  : 'Visual',
+            \ 'V'  : 'visual',
+            \ '⌃V' : 'V(Block)',
             \ }
 let g:airline#extensions#branch#enabled = 1
 let g:airline_extensions = ['branch', 'tabline']
