@@ -1,11 +1,9 @@
 " Color scheme from
 " Development build (https://github.com/AlessandroYorba/De
 " spacio/tree/nightly)
-" Thank you. I like this.
-"
-" :98 ~ .vimrc
 
-"DESPACIO:
+"Color scheme
+"[despacio]{{{
 set background=dark
 
 highlight clear
@@ -94,6 +92,7 @@ if 1
 	highlight NonText guifg=#444444 guibg=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
 	highlight SpecialKey guifg=#444444 guibg=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
 endif
+"}}}
 
 "+---+-------------+
 "| # | Status line |
@@ -170,12 +169,15 @@ hi CursorLineNr term=standout ctermfg=109 ctermbg=15
 " 対括弧強調表示
 hi MatchParen ctermbg=21
 " set termguicolors時に反映
-hi Normal guibg=#000022                "背景色
-hi Normal guifg=#B3ADA5
-" hi Normal guibg=#2B2B2B                "背景色
-" hi Normal guifg=#CCCCFF                "文字色
+hi Normal guibg=#000111                "背景色
+hi Normal guifg=#C6C6C6
 hi CursorLineNr guifg=#6b8e23
-" hi Number guifg=#cd5c5c
+" 行の背景色
+set cursorline
+hi CursorLine guibg=#330033
+" 列の背景色
+set cursorcolumn
+hi CursorColumn guibg=#220000
 "+---+--------+
 "| # | Indent |
 "+===+========+
@@ -316,4 +318,3 @@ vnoremap <c-x> <c-x>gv
 "+===|================================+
 map n nzz
 map N Nzz
-

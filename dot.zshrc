@@ -185,6 +185,8 @@ alias vi='vim'
 alias ll='ls -hla'
 alias l='ls -GF'
 alias ls='ls -GF'
+#alias l='ls --color=auto'
+#alias ls='ls --color=auto'
 alias la='ls -a'
 alias c='clear'
 alias cl='clear'
@@ -225,7 +227,7 @@ alias gclean="git clean"
 alias gdiff="git diff"
 ### Linux Open Command
 # alias open='xdg-open'
-### Linux Open Command(GNOME)
+### Linux Open Command(GNOME)?
 # alias open='gnome-open'
 
 # +---|-----------+

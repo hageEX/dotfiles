@@ -1,11 +1,21 @@
 " Plugin manager = Vim-plug
 " Nerd-fonts = 16pt Literation Mono Nerd Font Complete
 " vim: ft=vim
+
+" 折りたたみ機能を有効にする
+au FileType vim setlocal foldmethod=marker
+" Note:[-折りたたみの有効無効切り替え-]
+" zi 全てを表示 非表示
+" za 個別に表示 非表示
+
+" 範囲選択の始まりと終わりに折りたたみマーカーを追加する
+" zf
 "+---+----------------+
 "| # | Plugin Install |
 "+===+================+
+"
 call plug#begin()
-
+" {{{
 " 表作成を補助する
 Plug 'dhruvasagar/vim-table-mode', {'on': 'TableModeEnableToggle'}
 " ツリー構造を表示する
@@ -60,14 +70,14 @@ Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
 " カーソルの移動を快適にする
 Plug 'easymotion/vim-easymotion'
 " vim-lsp
-Plug 'prabirshrestha/async.vim', {'for': ['python', 'rust', 'javascript']}
-Plug 'prabirshrestha/vim-lsp', {'for': ['python', 'rust', 'javascript']}
-Plug 'prabirshrestha/asyncomplete.vim', {'for': ['python', 'rust', 'javascript']}
-Plug 'prabirshrestha/asyncomplete-lsp.vim', {'for': ['python', 'rust', 'javascript']}
-" TypeScript-lsp
-Plug 'ryanolsonx/vim-lsp-typescript'
-" JavaScript-lsp
-Plug 'ryanolsonx/vim-lsp-javascript'
+"Plug 'prabirshrestha/async.vim', {'for': ['python', 'rust', 'javascript']}
+"Plug 'prabirshrestha/vim-lsp', {'for': ['python', 'rust', 'javascript']}
+"Plug 'prabirshrestha/asyncomplete.vim', {'for': ['python', 'rust', 'javascript']}
+"Plug 'prabirshrestha/asyncomplete-lsp.vim', {'for': ['python', 'rust', 'javascript']}
+"" TypeScript-lsp
+"Plug 'ryanolsonx/vim-lsp-typescript'
+"" JavaScript-lsp
+"Plug 'ryanolsonx/vim-lsp-javascript'
 " (M)マークダウンをサポート
 Plug 'plasticboy/vim-markdown', {'for': ['markdown', 'html', 'js']}
 " (M)マークダウンをプレビュー表示
@@ -77,7 +87,9 @@ Plug 'tyru/open-browser.vim'
 " vimのオートセーブを可能にする
 Plug 'vim-scripts/vim-auto-save', {'for': ['markdown', 'html', 'js']}
 
+"}}}
 call plug#end()
+
 "+---|----------------+
 "| # | Plugin Setting |
 "+===|================+
@@ -85,6 +97,8 @@ call plug#end()
 "+----------+
 "| VimShell |
 "+----------+
+
+"{{{
 nnoremap <Space>s :VimShellPop<CR>
 let g:vimshell_popup_command = 'vs'
 
@@ -96,24 +110,35 @@ endfunction
 
 let g:vimshell_user_prompt = '"[" .$USER ."@VimShell]-[" .fnamemodify(getcwd(), ":~")."]"'
 let g:vimshell_prompt = " --> "
+"}}}
+
 "+-----+
 "| ale |
 "+=====+
+"
+"{{{
 " シンタックスチェックの表示シンボルを変更する
 let g:ale_sign_error = '⌦'
 let g:ale_sign_warning = '⚠'
 " エラー箇所にジャンプ
 nmap <silent> J <Plug>(ale_next_wrap)
 nmap <silent> K <Plug>(ale_previous_wrap)
+"}}}
+"
 "+---------------+
 "| vim-auto-save |
 "+===============+
 " オートセーブが使いたくなったときはこちらー！（浜田風）
+"{{{
 let g:auto_save = 0
 let g:auto_save_in_insert_mode = 0
+"}}}
+
 "+------------+
 "| (M)arkDown |
 "+============+
+
+"{{{
 " 折りたたみの禁止
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_auto_insert_bullets = 0
@@ -128,16 +153,20 @@ let g:vim_markdown_strikethrough = 1
 let g:previm_enable_realtime = 1
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 let g:previm_open_cmd = 'open -a firefox'
-" ctrl mでプレビュー
+" Shift + m でプレビュー
 nnoremap <silent> M :PrevimOpen<CR>
 
 " gxで選択した文字列をブラウザ検索
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
+"}}}
+
 "+---------+
 "| vim-lsp |
 "+=========+
+
+"{{{
 " Syntax Check signs    0=disable, 1=enable
 let g:lsp_signs_enabled = 1
 let g:lsp_signs_error = {'text': '⌦'}
@@ -181,6 +210,8 @@ au User lsp_setup call lsp#register_server({
             \ 'whitelist': ['javascript', 'javascript.jsx'],
             \ })
 
+"}}}
+
 "+------------+
 "| neovim-lsp |
 "+============+
@@ -188,6 +219,8 @@ au User lsp_setup call lsp#register_server({
 "+-------------------+
 "| deoplete, snippet |
 "+===================+
+
+"{{{
 let g:python3_host_prog = '/Users/user/miniconda3/bin/python3'
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_delay = 0
@@ -216,27 +249,43 @@ imap <expr><TAB>
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
             \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
+"}}}
+
 "+-------------+
 "| easy-motion |
 "+=============+
+
+"{{{
 " デフォルトのキーマッピングを無効に
 let g:EasyMotion_do_mapping = 0
-" f + 2文字 で画面全体を検索してジャンプ
-nmap f <plug>(easymotion-overwin-f2)
+" f + 1文字 で画面内を検索してジャンプ
+nmap f <plug>(easymotion-s)
 " 検索時、大文字小文字を区別しない
 let g:EasyMotion_smartcase = 1
+"}}}
+
 "+--------+
 "| Denite |
 "+========+
+
+"{{{
 nnoremap <Space>f :Denite file<CR>
+"}}}
+
 "+----------+
 "| NERDTree |
 "+==========+
+
+"{{{
 nnoremap <space>n :NERDTree<CR>
 let NERDTreeWinSize = 25
+"}}}
+
 "+----------+
 "| QuickRun |
 "+==========+
+
+"{{{
 nnoremap \r :write<CR>:QuickRun -mode n<CR>
 xnoremap \r :<C-U>write<CR>gv:QuickRun -mode v<CR>
 let g:quickrun_config={'*': {'split': 'vertical'}}
@@ -254,27 +303,43 @@ nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() 
 " vimproc -> job
 set splitright
 let g:quickrun_no_default_key_mappings = 1
+"}}}
+
 "+----------+
 "| Devicons |
 "+==========+
+
+"{{{
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:Webdevicons_enable = 1
 let g:Webdevicons_enable_nerdtree = 1
 let g:Webdevicons_enable_nerdtree_brackets = 1
 let g:WebdeviconsUnicodeGlyphDoubleWidth = 1
+"}}}
+
 "+-----------+
 "| TableMode |
 "+===========+
+
+"{{{
 let g:table_mode_corner_corner='+'
 let g:table_mode_header_fillchar='='
 let g:table_mode_corner = '|'
+"}}}
+
 "+---------------------+
 "| winresizer:画面分割 |
 "+=====================+
+
+"{{{
 let g:winresizer_start_key = '\'
+"}}}
+
 "+---|------------+
 "| # | StatusLine |
 "+===|============+
+
+"{{{
 set laststatus=2
 set showcmd
 let g:lightline = {
@@ -324,10 +389,13 @@ endfunction
 function! LightlineMode()
     return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
+"}}}
 
 "+---|---------+
 "| # | airline |
 "+===|=========+
+
+"{{{
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'default'
 "let g:airline#extensions#tabline#buffer_idx_mode = 1
@@ -385,13 +453,17 @@ let g:airline_powerline_fonts = 1
 
 " モード切り替え時の遅延を無くす？
 set ttimeoutlen=50
+"}}}
+
 "+---|------------+
 "| # | Colortheme |
 "+===|============+
 colorscheme despacio
-"+---|---------+
-"| # | Setting |
-"+===|=========+
+"+---|-----------------+
+"| # | Default Setting |
+"+===|=================+
+
+"{{{
 filetype plugin on
 filetype plugin indent on
 set ruler
@@ -407,14 +479,22 @@ set virtualedit=onemore
 set term=xterm-256color
 syntax enable
 set termguicolors
+"}}}
+
 "+---+--------------+
 "| # | Mouse Enable |
 "+===+==============+
+
+"{{{
 set mouse=a
 set ttymouse=xterm2
+"}}}
+
 "+---|--------+
 "| # | Colors |
 "+===|========+
+
+"{{{
 " カーソルライン
 hi clear cursorline
 " その他
@@ -458,18 +538,26 @@ hi Todo guifg=#262626 guibg=#DDA0DD
 hi VimShellUserPrompt guifg=cyan
 hi VimShellPrompt guifg=red
 hi VimShellDirectory guifg=#6699cc
+"}}}
+
 "+---+--------+
 "| # | Indent |
 "+===+========+
+
+"{{{
 set expandtab
 set autoindent
 set smartindent
 set shiftwidth=4
 set softtabstop=4
 set tabstop=8
+"}}}
+
 "+---+-----+
 "| # | etc |
 "+===+=====+
+
+"{{{
 set hidden                             "保存せずにファイルを切り替え可能に
 set directory=/home/SWAP               "swapFileを一箇所に集める
 set history=10000                      "履歴の保存件数を指定
@@ -482,11 +570,15 @@ set ambiwidth=double                   "全角記号の表示設定
 set clipboard+=unnamed,autoselect      "クリップボードを有効化
 set backspace=indent,eol,start         "BSを有効化
 
-" MarkDown不可視文字くそ
+" 不可視文字機能をおっふ
 set conceallevel=0
+"}}}
+
 "+---+------------+
 "| # | Vim search |
 "+===+============+
+
+"{{{
 set hlsearch
 set ignorecase                         "検索時に大文字小文字を区別しない
 set smartcase                          "検索時に大文字を使った時は区別する
@@ -495,9 +587,13 @@ set incsearch                          "検索時に一文字入力毎に検索�
 nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
 "検索時に一般的な正規表現を使用可能する
 nmap / /\v
+"}}}
+
 "+---+--------------+
 "| # | ちょっと便利 |
 "+===+==============+
+
+"{{{
 set shortmess-=S                       " 検索時の総マッチ数と現在の位置を表示する
 set showmatch matchtime=1              "対応するカッコを一瞬表示
 set whichwrap=b,s,h,l,<,>,[,],~        "カーソルの左右移動で行を移動可能にする
@@ -514,6 +610,15 @@ set listchars=tab:»-,trail:-,eol:↵,extends:»,precedes:«,nbsp:%
 "set nolist
 " 行末の半角スペースを取り除く
 autocmd BufWritePre * :%s/\s\+$//ge
+" vimgrepの検索結果をquickfixに自動的に送る
+autocmd QuickFixCmdPost *grep* cwindow
+"}}}
+
+"+---+------------+
+"| # | KeyMapping |
+"+===+============+
+
+"{{{
 "+---+---------------------------+
 "| # | Cursor(Insert): mac emacs |
 "+===+===========================+
@@ -605,9 +710,13 @@ vnoremap <c-x> <c-x>gv
 "+===|================================+
 map n nzz
 map N Nzz
+"}}}
+
 "+---|-----------------------------------+
 "| # | プロジェクト固有の設定を可能にする|
 "+===|===================================+
+
+"{{{
 " .local.vimrcをプロジェクトディレクトリに作成することで使用可能
 augroup vimrc-local
     autocmd!
@@ -620,5 +729,5 @@ function! s:vimrc_local(loc)
         source `=i`
     endfor
 endfunction
-
+"}}}
 
