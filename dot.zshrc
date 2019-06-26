@@ -1,3 +1,11 @@
+# ========================================
+#           _
+#    _______| |__  _ __ ___
+#   |_  / __| '_ \| '__/ __|
+#  _ / /\__ \ | | | | | (__
+# (_)___|___/_| |_|_|  \___|
+#
+#========================================
 # Nerd-fonts = 16pt Literation Mono Nerd Font Complete.
 # vim: ft=zsh
 
@@ -10,15 +18,18 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 RPROMPT='%F{yellow}⏾%f%F{cyan}%K{clear} %D{%m/%d(%a)}  %D{%H:%M}%f%k'
-zstyle ':vcs_info:git:*' formats '%F{black}%K{028}%f%F{003}⌖%b%k%f'
+zstyle ':vcs_info:git:*' formats '%F{red}%K{black}  %f%F{075}%b %k%f'
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "+"
 zstyle ':vcs_info:git:*' unstagedstr "-"
 zstyle ':vcs_info:git:*' actionformats '(%s)-[%b|%a] %c%u'
 zstyle ':vcs_info:*' actionformats '%F{red}(%s)-[%b|%a]%f'
 
-PROMPT='%F{40}╭%f%F{cyan}%K{16} root@MacBookPro %k%f%F{16}%K{cyan}%k%f%F{16}%K{cyan}  %c%k%f%F{cyan} %f %F{34}%f$vcs_info_msg_0_%F{34}%f
-%F{46}╰─%f%F{10}%f%F{149}%f '
+# old color 40, 46, 10, 149
+
+PROMPT='%F{50}╭%f%F{cyan}%K{16} root@MacBookPro %k%f%F{16}%K{cyan}%k%f%F{16}%K{cyan}  %c%k%f%F{cyan} %f %F{34}%f$vcs_info_msg_0_%F{34}%f
+%F{50}╰─%f%F{44}%f%F{117}%f '
+
 
 # parrot風プロンプト
 #PROMPT='%F{red}┌─[%f%F{46}%n%f%F{226}@%f%F{50}parrot%F{red}]─%f%f%F{red}[%f%F{green}%~%f%F{red}]
@@ -203,6 +214,8 @@ alias gf='grep -F'
 alias home='cd ~'
 alias reload='exec $SHELL -l'
 alias apt='sudo apt'
+alias pip-update='pip freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs pip install -U pip'
+alias pip3-update='pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs pip3 install -U pip'
 # +---|-----+
 # | # | Git |
 # +===|=====+

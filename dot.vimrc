@@ -1,3 +1,11 @@
+" ========================================
+"        _
+" __   _(_)_ __ ___  _ __ ___
+" \ \ / / | '_ ` _ \| '__/ __|
+"  \ V /| | | | | | | | | (__
+" (_)_/ |_|_| |_| |_|_|  \___|
+"
+"========================================
 " Plugin manager = Vim-plug
 " Nerd-fonts = 16pt Literation Mono Nerd Font Complete
 " vim: ft=vim
@@ -93,7 +101,7 @@ call plug#end()
 "+---|----------------+
 "| # | Plugin Setting |
 "+===|================+
-
+"
 "+----------+
 "| VimShell |
 "+----------+
@@ -176,11 +184,12 @@ nmap <silent> K :LspPreviousError<CR>
 
 " //Python
 if executable('pyls')
+    " pip install python-language-server
     au User lsp_setup call lsp#register_server({
-                \'name': 'pyls',
-                \'cmd': {server_info->['pyls']},
-                \'whitelist': ['python'],
-                \})
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
 endif
 
 " //Rust
@@ -278,7 +287,7 @@ nnoremap <Space>f :Denite file<CR>
 
 "{{{
 nnoremap <space>n :NERDTree<CR>
-let NERDTreeWinSize = 25
+let NERDTreeWinSize = 28
 "}}}
 
 "+----------+
@@ -415,7 +424,7 @@ let g:airline_left_alt_sep = ''
 let g:airline_right_sep = '⮂'
 let g:airline_right_alt_sep = ''
 let g:airline_symbols.crypt = '🔒'		"暗号化されたファイル
-let g:airline_symbols.linenr = '¶'			"行
+let g:airline_symbols.linenr = '¶'		"行
 let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.branch = '⭠'		"gitブランチ
 let g:airline_symbols.notexists = '∄'		"gitで管理されていない場合
@@ -507,6 +516,7 @@ hi CursorLineNr term=standout ctermfg=109 ctermbg=15
 hi MatchParen ctermbg=21
 " set termguicolors時に反映
 "hi Normal guibg=#262626
+"hi Normal guibg=#262626
 hi Normal guifg=#C6C6C6
 hi CursorLineNr guifg=#262626
 " 行の背景色
@@ -515,6 +525,10 @@ hi CursorLine guibg=#330033
 " 列の背景色
 set cursorcolumn
 hi CursorColumn guibg=#220000
+
+hi String gui=bold
+hi Special gui=bold
+hi Conditional gui=bold
 
 " 行番号が振られていない、テキストのない場所の色
 "hi NonText guibg=#111000
@@ -538,6 +552,14 @@ hi Todo guifg=#262626 guibg=#DDA0DD
 hi VimShellUserPrompt guifg=cyan
 hi VimShellPrompt guifg=red
 hi VimShellDirectory guifg=#6699cc
+
+" win風フォルダ
+hi NerdTreeFlags guifg=#999900 "cccc00
+" マック風フォルダ
+hi NerdTreeFlags guifg=#59a8d0
+hi Directory guifg=#708090
+hi NerdTreeClosable guifg=magenta
+"hi NerdTreeOpenable guifg=blue
 "}}}
 
 "+---+--------+
@@ -683,7 +705,7 @@ nnoremap <Space>t :enew<CR>
 "+---+----------------------+
 "| # | Exモードの再割り当て |
 "+===+======================+
-nnoremap Q gq
+nnoremap Q q:
 "+---+----------------------------------+
 "| # | カーソルがあるWindow以外を閉じる |
 "+===+==================================+
@@ -717,7 +739,7 @@ map N Nzz
 "+===|===================================+
 
 "{{{
-" .local.vimrcをプロジェクトディレクトリに作成することで使用可能
+" .vimrc.localをプロジェクトディレクトリに作成することで使用可能
 augroup vimrc-local
     autocmd!
     autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
