@@ -36,6 +36,9 @@ PROMPT='%F{50}╭%f%F{cyan}%K{16} root@MacBookPro %k%f%F{16}%K{cyan}%k%f%F
 #└──╼%f%F{226} $%f '
 #RPROMPT='%F{red}[%f%F{yellow}⏾%f%F{green}%K{clear} %D{%m/%d(%a)}%F{red}]─[%f%F{46} %D{%H:%M}%f%k%F{red}]%f'
 
+# parrto Terminal
+# fg=#090EA1 bg=#729FCF
+
 # カラフルプロンプト
 #PROMPT='%F{1}us%f%F{178}er%f%F{11}@%f%F{2}x%f%F{4}x%f%F{53}x%f:%F{101}[%f%F{030}%~%f%F{101}]%f
 #%F{215}   ❨%f%F{020}◈%f%F{215} ❩ %f '
