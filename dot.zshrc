@@ -193,7 +193,8 @@ zstyle ':completion:*' cache-path ~/.zsh/cache
 zstyle ':completion:*' verbose no
 
 alias vi='vim'
-alias ll='ls -hla'
+alias ll='ls -hl'
+alias lla='ls -hla'
 alias l='ls -GF'
 alias ls='ls -GF'
 #alias l='ls --color=auto'

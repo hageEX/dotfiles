@@ -1,4 +1,4 @@
-" ========================================
+"========================================
 "        _
 " __   _(_)_ __ ___  _ __ ___
 " \ \ / / | '_ ` _ \| '__/ __|
@@ -94,6 +94,8 @@ Plug 'kannokanno/previm', {'for': ['markdown', 'html', 'js']}
 Plug 'tyru/open-browser.vim'
 " vimのオートセーブを可能にする
 Plug 'vim-scripts/vim-auto-save', {'for': ['markdown', 'html', 'js']}
+" リアルタイム同時置換を可能にする
+Plug 'terryma/vim-multiple-cursors'
 
 "}}}
 call plug#end()
@@ -102,6 +104,20 @@ call plug#end()
 "| # | Plugin Setting |
 "+===|================+
 "
+"+-----------------------+
+"|  vim-multiple-cursors |
+"+-----------------------+
+"let g:multi_cursor_use_default_mapping=0
+"
+"" Default mapping
+"let g:multi_cursor_start_word_key      = '<C-n>'
+"let g:multi_cursor_select_all_word_key = '<A-n>'
+"let g:multi_cursor_start_key           = 'g<C-n>'
+"let g:multi_cursor_select_all_key      = 'g<A-n>'
+"let g:multi_cursor_next_key            = '<C-n>'
+"let g:multi_cursor_prev_key            = '<C-p>'
+"let g:multi_cursor_skip_key            = '<C-x>'
+"let g:multi_cursor_quit_key            = '<Esc>'
 "+----------+
 "| VimShell |
 "+----------+
