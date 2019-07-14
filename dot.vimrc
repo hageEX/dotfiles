@@ -430,17 +430,17 @@ if !exists('g:airline_symbols')
 endif
 
 " tablineの区切り文字を設定
-let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 
 " 左側に使用されるセパレータ
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 " 右側に使用されるセパレータ
-let g:airline_right_sep = '⮂'
+let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
-let g:airline_symbols.crypt = '🔒'		"暗号化されたファイル
-let g:airline_symbols.linenr = '¶'		"行
+let g:airline_symbols.crypt = ''		"暗号化されたファイル🔒
+let g:airline_symbols.linenr = ''		"行 ¶
 let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.branch = '⭠'		"gitブランチ
 let g:airline_symbols.notexists = '∄'		"gitで管理されていない場合

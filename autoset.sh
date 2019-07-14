@@ -1,4 +1,5 @@
 #!/bin/sh
+#
 
 if [ ! -f ~/.vim/autoload/plug.vim ] ; then
     echo 'Install... [vim-plug]'
@@ -7,7 +8,7 @@ if [ ! -f ~/.vim/autoload/plug.vim ] ; then
     if [ $? = 0 ] ; then
         echo '\nInstall... [vim-plug]'
     else
-        echo 'bad... [vim-plug]'
+        echo 'requires curl'
     fi
 fi
 
@@ -18,7 +19,7 @@ if [ ! -f ~/.vim/colors/despacio.vim ] ; then
     if [ $? = 0 ] ; then
         echo '\nInstall... [despacio.vim]'
     else
-        echo 'bad... [despacio.vim]'
+        echo 'requires curl'
     fi
 fi
 

@@ -1,4 +1,4 @@
-# ========================================
+#========================================
 #           _
 #    _______| |__  _ __ ___
 #   |_  / __| '_ \| '__/ __|
@@ -18,7 +18,7 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 RPROMPT='%F{yellow}⏾%f%F{cyan}%K{clear} %D{%m/%d(%a)}  %D{%H:%M}%f%k'
-zstyle ':vcs_info:git:*' formats '%F{red}%K{black}  %f%F{075}%b %k%f'
+zstyle ':vcs_info:git:*' formats '%F{50}%K{black}  %f%F{117}%b %k%f'
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "+"
 zstyle ':vcs_info:git:*' unstagedstr "-"
