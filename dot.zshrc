@@ -32,7 +32,7 @@ PROMPT='%F{50}╭%f%F{cyan}%K{16} root@MacBookPro %k%f%F{16}%K{cyan}%k%f%F
 
 
 # parrot風プロンプト
-#PROMPT='%F{red}┌─[%f%F{46}%n%f%F{226}@%f%F{50}parrot%F{red}]─%f%f%F{red}[%f%F{green}%~%f%F{red}]
+#PROMPT='%F{red}┌─[%f%F{46}%n%f%F{226}@%f%F{014}parrot%F{red}]─%f%f%F{red}[%f%F{green}%~%f%F{red}]
 #└──╼%f%F{226} $%f '
 #RPROMPT='%F{red}[%f%F{yellow}⏾%f%F{green}%K{clear} %D{%m/%d(%a)}%F{red}]─[%f%F{46} %D{%H:%M}%f%k%F{red}]%f'
 
