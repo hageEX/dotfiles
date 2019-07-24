@@ -36,7 +36,7 @@ PROMPT='%F{50}╭%f%F{cyan}%K{16} root@MacBookPro %k%f%F{16}%K{cyan}%k%f%F
 #└──╼%f%F{226} $%f '
 #RPROMPT='%F{red}[%f%F{yellow}⏾%f%F{green}%K{clear} %D{%m/%d(%a)}%F{red}]─[%f%F{46} %D{%H:%M}%f%k%F{red}]%f'
 
-# parrto Terminal
+# parrot Terminal color
 # fg=#090EA1 bg=#729FCF
 
 # カラフルプロンプト
