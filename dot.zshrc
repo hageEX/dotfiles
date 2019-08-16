@@ -204,7 +204,6 @@ alias ls='ls -GF'
 #alias ls='ls --color=auto'
 alias la='ls -a'
 alias c='clear'
-alias cl='clear'
 alias p='python'
 alias ascii='asciiConvert'
 alias du='du -hs'
@@ -218,8 +217,14 @@ alias gf='grep -F'
 alias home='cd ~'
 alias reload='exec $SHELL -l'
 alias apt='sudo apt'
+### Linux Open Command
+# alias open='xdg-open'
 alias pip-update='pip freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs pip install -U pip'
 alias pip3-update='pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs pip3 install -U pip'
+alias cl='colorls'
+alias cla='colorls -a'
+alias cll='colorls -l'
+alias clla='colorls -la'
 # +---|-----+
 # | # | Git |
 # +===|=====+
@@ -242,8 +247,7 @@ alias cout="git checkout"
 alias ggrep="git grep"
 alias gclean="git clean"
 alias gdiff="git diff"
-### Linux Open Command
-# alias open='xdg-open'
+
 ### Linux Open Command(GNOME)?
 # alias open='gnome-open'
 
