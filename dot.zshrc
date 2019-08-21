@@ -1,11 +1,11 @@
-#========================================
-#           _
-#    _______| |__  _ __ ___
-#   |_  / __| '_ \| '__/ __|
-#  _ / /\__ \ | | | | | (__
-# (_)___|___/_| |_|_|  \___|
-#
-#========================================
+#=======================================
+#|              _                      |
+#|       _______| |__  _ __ ___        |
+#|      |_  / __| '_ \| '__/ __|       |
+#|     _ / /\__ \ | | | | | (__        |
+#|    (_)___|___/_| |_|_|  \___|       |
+#|                                     |
+#=======================================
 # Nerd-fonts = 16pt Literation Mono Nerd Font Complete.
 # vim: ft=zsh
 
@@ -62,16 +62,13 @@ fi
 source ~/.zplug/init.zsh
 # zplug "ユーザー名/リポジトリ名", タグ
 
-# 補完を更に強化する
-zplug "zsh-users/zsh-completions"
 # タイプ補完
-zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
-zplug "chrissicool/zsh-256color"
 # 入力途中に候補をうっすら表示
 zplug "zsh-users/zsh-autosuggestions"
 # コマンドを種類ごとに色付け
 zplug "zsh-users/zsh-syntax-highlighting", defer:3
+zplug "chrissicool/zsh-256color"
 # ヒストリの補完を強化する
 zplug "zsh-users/zsh-history-substring-search", defer:3
 # 自分自身をプラグインとして管理

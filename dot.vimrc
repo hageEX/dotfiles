@@ -1,11 +1,11 @@
-"========================================
-"        _
-" __   _(_)_ __ ___  _ __ ___
-" \ \ / / | '_ ` _ \| '__/ __|
-"  \ V /| | | | | | | | | (__
-" (_)_/ |_|_| |_| |_|_|  \___|
-"
-"========================================
+"=======================================
+"|           _                         |
+"|    __   _(_)_ __ ___  _ __ ___      |
+"|    \ \ / / | '_ ` _ \| '__/ __|     |
+"|     \ V /| | | | | | | | | (__      |
+"|    (_)_/ |_|_| |_| |_|_|  \___|     |
+"|                                     |
+"=======================================
 " Plugin manager = Vim-plug
 " Nerd-fonts = 16pt Literation Mono Nerd Font Complete
 " vim: ft=vim
@@ -18,10 +18,10 @@ au FileType vim setlocal foldmethod=marker
 
 " 範囲選択の始まりと終わりに折りたたみマーカーを追加する
 " zf
-"+---+----------------+
-"| # | Plugin Install |
-"+===+================+
-"
+"+---+------------------+
+"| # | "Plugin Install" |
+"+===+==================+
+
 call plug#begin()
 " {{{
 " 表作成を補助する
@@ -98,23 +98,35 @@ Plug 'vim-scripts/vim-auto-save', {'for': ['markdown', 'html', 'js']}
 "Plug 'terryma/vim-multiple-cursors'
 " コロンの位置を揃えるなど
 Plug 'junegunn/vim-easy-align'
+" 文字列マーキング機能
+Plug 't9md/vim-quickhl'
 
 "}}}
 call plug#end()
 
-"+---|----------------+
-"| # | Plugin Setting |
-"+===|================+
-"
-"+----------------+
-"| vim-easy-align |
-"+----------------+
+"+---+------------------+
+"| # | "Plugin Setting" |
+"+===+==================+
+
+"+---------------+
+"| "vim-quickhl" |
+"+---------------+
+"{{{
+nmap <Space>l <Plug>(quickhl-manual-this)
+xmap <Space>l <Plug>(quickhl-manual-this)
+nmap <Space>L <Plug>(quickhl-manual-reset)
+xmap <Space>L <Plug>(quickhl-manual-reset)
+"}}}
+"+------------------+
+"| "vim-easy-align" |
+"+------------------+
+"{{{
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
-"+----------+
-"| VimShell |
-"+----------+
-
+"}}}
+"+------------+
+"| "VimShell" |
+"+------------+
 "{{{
 nnoremap <Space>s :VimShellPop<CR>
 let g:vimshell_popup_command = 'vs'
@@ -128,11 +140,9 @@ endfunction
 let g:vimshell_user_prompt = '"[" .$USER ."@VimShell]-[" .fnamemodify(getcwd(), ":~")."]"'
 let g:vimshell_prompt = " --> "
 "}}}
-
-"+-----+
-"| ale |
-"+=====+
-"
+"+-------+
+"| "ale" |
+"+-------+
 "{{{
 " シンタックスチェックの表示シンボルを変更する
 let g:ale_sign_error = '⌦'
@@ -141,20 +151,17 @@ let g:ale_sign_warning = '⚠'
 nmap <silent> J <Plug>(ale_next_wrap)
 nmap <silent> K <Plug>(ale_previous_wrap)
 "}}}
-"
-"+---------------+
-"| vim-auto-save |
-"+===============+
-" オートセーブが使いたくなったときはこちらー！（浜田風）
+"+-----------------+
+"| "vim-auto-save" |
+"+-----------------+
+" オートセーブはこちらー！（浜田風）
 "{{{
 let g:auto_save = 0
 let g:auto_save_in_insert_mode = 0
 "}}}
-
-"+------------+
-"| (M)arkDown |
-"+============+
-
+"+--------------+
+"| "(M)arkDown" |
+"+--------------+
 "{{{
 " 折りたたみの禁止
 let g:vim_markdown_folding_disabled = 1
@@ -178,11 +185,9 @@ let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 "}}}
-
-"+---------+
-"| vim-lsp |
-"+=========+
-
+"+-----------+
+"| "vim-lsp" |
+"+-----------+
 "{{{
 " Syntax Check signs    0=disable, 1=enable
 let g:lsp_signs_enabled = 1
@@ -229,15 +234,12 @@ au User lsp_setup call lsp#register_server({
             \ })
 
 "}}}
-
-"+------------+
-"| neovim-lsp |
-"+============+
-
-"+-------------------+
-"| deoplete, snippet |
-"+===================+
-
+"+--------------+
+"| "neovim-lsp" |
+"+--------------+
+"+---------------------+
+"| "deoplete, snippet" |
+"+---------------------+
 "{{{
 let g:python3_host_prog = '/Users/user/miniconda3/bin/python3'
 let g:deoplete#enable_at_startup = 1
@@ -268,11 +270,9 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
             \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 "}}}
-
-"+-------------+
-"| easy-motion |
-"+=============+
-
+"+---------------+
+"| "easy-motion" |
+"+---------------+
 "{{{
 " デフォルトのキーマッピングを無効に
 let g:EasyMotion_do_mapping = 0
@@ -281,30 +281,25 @@ nmap f <plug>(easymotion-s)
 " 検索時、大文字小文字を区別しない
 let g:EasyMotion_smartcase = 1
 "}}}
-
-"+--------+
-"| Denite |
-"+========+
-
+"+----------+
+"| "Denite" |
+"+----------+
 "{{{
 nnoremap <Space>f :Denite file<CR>
 "}}}
-
-"+----------+
-"| NERDTree |
-"+==========+
-
+"+------------+
+"| "NERDTree" |
+"+------------+
 "{{{
 nnoremap <space>n :NERDTree<CR>
 let NERDTreeWinSize = 28
 "}}}
-
-"+----------+
-"| QuickRun |
-"+==========+
-
+"+------------+
+"| "QuickRun" |
+"+------------+
 "{{{
 nnoremap \r :write<CR>:QuickRun -mode n<CR>
+nnoremap <F5> :write<CR>:QuickRun -mode n<CR>
 xnoremap \r :<C-U>write<CR>gv:QuickRun -mode v<CR>
 let g:quickrun_config={'*': {'split': 'vertical'}}
 " 左右分割する場合は、下の/buffer/splitの行をコメントアウト
@@ -322,11 +317,9 @@ nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() 
 set splitright
 let g:quickrun_no_default_key_mappings = 1
 "}}}
-
-"+----------+
-"| Devicons |
-"+==========+
-
+"+------------+
+"| "Devicons" |
+"+------------+
 "{{{
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:Webdevicons_enable = 1
@@ -334,85 +327,23 @@ let g:Webdevicons_enable_nerdtree = 1
 let g:Webdevicons_enable_nerdtree_brackets = 1
 let g:WebdeviconsUnicodeGlyphDoubleWidth = 1
 "}}}
-
-"+-----------+
-"| TableMode |
-"+===========+
-
+"+-------------+
+"| "TableMode" |
+"+-------------+
 "{{{
 let g:table_mode_corner_corner='+'
 let g:table_mode_header_fillchar='='
 let g:table_mode_corner = '|'
 "}}}
-
-"+---------------------+
-"| winresizer:画面分割 |
-"+=====================+
-
+"+-----------------------+
+"| "winresizer:画面分割" |
+"+-----------------------+
 "{{{
-let g:winresizer_start_key = '\'
+let g:winresizer_start_key = '\\'
 "}}}
-
-"+---|------------+
-"| # | StatusLine |
-"+===|============+
-
-"{{{
-set laststatus=2
-set showcmd
-let g:lightline = {
-            \ 'colorscheme': 'jellybeans',
-            \ 'mode_map': {'c': 'NORMAL'},
-            \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ], [ 'filename' ], [ 'fugitive' ] ],
-            \   'right': [ [''], ['percent'], ['fileformat', 'fileencoding', 'filetype']]
-            \ },
-            \ 'tab': {
-            \   'active': ['', 'filename', 'modified'],
-            \   'inactive': ['', 'filename', 'modified']
-            \ },
-            \ 'component_function': {
-            \   'fugitive': 'LightlineFugitive',
-            \   'fileformat': 'LightlineFileformat',
-            \   'filetype': 'LightlineFiletype',
-            \   'fileencoding': 'LightlineFileencoding',
-            \   'mode': 'LightlineMode'
-            \ },
-            \ 'separator': {'left': '', 'right': ''},
-            \ 'subseparator': {'left': '' , 'right': ''},
-            \ 'tabline_separator': {'left':'|', 'right': '|'},
-            \ 'tabline_subseparator': {'left':'|', 'right': '|'},
-            \ }
-
-function! LightlineFugitive()
-    if exists('*fugitive#head')
-        let branch = fugitive#head()
-        return branch !=# '' ? ''.branch : ''
-    endif
-    return ''
-endfunction
-
-function! LightlineFileformat()
-    return winwidth(0) > 70 ? &fileformat : ''
-endfunction
-
-function! LightlineFiletype()
-    return winwidth(0) > 50 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-endfunction
-
-function! LightlineFileencoding()
-    return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
-endfunction
-
-function! LightlineMode()
-    return winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
-"}}}
-
-"+---|---------+
-"| # | airline |
-"+===|=========+
-
+"+---------------+
+"| "vim-airline" |
+"+---------------+
 "{{{
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'default'
@@ -473,14 +404,68 @@ let g:airline_powerline_fonts = 1
 set ttimeoutlen=50
 "}}}
 
-"+---|------------+
-"| # | Colortheme |
-"+===|============+
-colorscheme despacio
-"+---|-----------------+
-"| # | Default Setting |
-"+===|=================+
 
+"+---+--------------+
+"| # | "StatusLine" |
+"+===+==============+
+"{{{
+set laststatus=2
+set showcmd
+let g:lightline = {
+            \ 'colorscheme': 'jellybeans',
+            \ 'mode_map': {'c': 'NORMAL'},
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ], [ 'filename' ], [ 'fugitive' ] ],
+            \   'right': [ [''], ['percent'], ['fileformat', 'fileencoding', 'filetype']]
+            \ },
+            \ 'tab': {
+            \   'active': ['', 'filename', 'modified'],
+            \   'inactive': ['', 'filename', 'modified']
+            \ },
+            \ 'component_function': {
+            \   'fugitive': 'LightlineFugitive',
+            \   'fileformat': 'LightlineFileformat',
+            \   'filetype': 'LightlineFiletype',
+            \   'fileencoding': 'LightlineFileencoding',
+            \   'mode': 'LightlineMode'
+            \ },
+            \ 'separator': {'left': '', 'right': ''},
+            \ 'subseparator': {'left': '' , 'right': ''},
+            \ 'tabline_separator': {'left':'|', 'right': '|'},
+            \ 'tabline_subseparator': {'left':'|', 'right': '|'},
+            \ }
+
+function! LightlineFugitive()
+    if exists('*fugitive#head')
+        let branch = fugitive#head()
+        return branch !=# '' ? ''.branch : ''
+    endif
+    return ''
+endfunction
+
+function! LightlineFileformat()
+    return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightlineFiletype()
+    return winwidth(0) > 50 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+
+function! LightlineFileencoding()
+    return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+endfunction
+
+function! LightlineMode()
+    return winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+"}}}
+"+---+--------------+
+"| # | "Colortheme" |
+"+===+==============+
+colorscheme despacio
+"+---+-------------------+
+"| # | "Default Setting" |
+"+===+===================+
 "{{{
 filetype plugin on
 filetype plugin indent on
@@ -498,20 +483,16 @@ set term=xterm-256color
 syntax enable
 set termguicolors
 "}}}
-
-"+---+--------------+
-"| # | Mouse Enable |
-"+===+==============+
-
+"+---+----------------+
+"| # | "Mouse Enable" |
+"+===+================+
 "{{{
 set mouse=a
 set ttymouse=xterm2
 "}}}
-
-"+---|--------+
-"| # | Colors |
-"+===|========+
-
+"+---+----------+
+"| # | "Colors" |
+"+===+==========+
 "{{{
 " カーソルライン
 hi clear cursorline
@@ -544,7 +525,7 @@ hi Conditional gui=bold
 " 分割の区切りの色
 hi VertSplit guibg=#000111
 
-hi Normal guibg=#000111
+hi Normal guibg=#0d160c "000111
 hi LineNr guibg=#262626
 "hi LineNr guifg=#c6c6c6
 
@@ -570,11 +551,9 @@ hi Directory guifg=#708090
 hi NerdTreeClosable guifg=magenta
 "hi NerdTreeOpenable guifg=blue
 "}}}
-
-"+---+--------+
-"| # | Indent |
-"+===+========+
-
+"+---+----------+
+"| # | "Indent" |
+"+===+==========+
 "{{{
 set expandtab
 set autoindent
@@ -583,11 +562,9 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=8
 "}}}
-
-"+---+-----+
-"| # | etc |
-"+===+=====+
-
+"+---+-------+
+"| # | "etc" |
+"+===+=======+
 "{{{
 set hidden                             "保存せずにファイルを切り替え可能に
 set directory=/home/SWAP               "swapFileを一箇所に集める
@@ -604,11 +581,9 @@ set backspace=indent,eol,start         "BSを有効化
 " 不可視文字機能をおっふ
 set conceallevel=0
 "}}}
-
-"+---+------------+
-"| # | Vim search |
-"+===+============+
-
+"+---+--------------+
+"| # | "Vim search" |
+"+===+==============+
 "{{{
 set hlsearch
 set ignorecase                         "検索時に大文字小文字を区別しない
@@ -619,11 +594,9 @@ nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
 "検索時に一般的な正規表現を使用可能する
 nmap / /\v
 "}}}
-
-"+---+--------------+
-"| # | ちょっと便利 |
-"+===+==============+
-
+"+---+----------------+
+"| # | "ちょっと便利" |
+"+===+================+
 "{{{
 set shortmess-=S                       " 検索時の総マッチ数と現在の位置を表示する
 set showmatch matchtime=1              "対応するカッコを一瞬表示
@@ -644,11 +617,9 @@ autocmd BufWritePre * :%s/\s\+$//ge
 " vimgrepの検索結果をquickfixに自動的に送る
 autocmd QuickFixCmdPost *grep* cwindow
 "}}}
-
-"+---+------------+
-"| # | KeyMapping |
-"+===+============+
-
+"+---+--------------+
+"| # | "KeyMapping" |
+"+===+==============+
 "{{{
 "+---+---------------------------+
 "| # | Cursor(Insert): mac emacs |
@@ -726,11 +697,6 @@ nnoremap <Space>o :only<CR>
 "nnoremap <Space>  :tabnew<CR>
 nnoremap <f1> gt
 nnoremap <f2> gT
-"+---+------------+
-"| # | 日本語入力 |
-"+===+============+
-nnoremap い i
-"noremap<silent> <C-i> i
 "+---|-------------------+
 "| # | Visual more ++ -- |
 "+===|===================+
@@ -746,16 +712,17 @@ noremap! <C-c> <Esc>
 map n nzz
 map N Nzz
 "}}}
-"+---|------------------------------+
-"| # | window分割時に新規で作成する |
-"+===|==============================+
+"+---+--------------------------------+
+"| # | "window分割時に新規で作成する" |
+"+===+================================+
+"{{{
 " 通常、無名で作成した場合、カレントファイルのクローンとして作成させる
 nnoremap <C-w>v :vnew<CR>
 nnoremap <C-w>s :new<CR>
-"+---|-----------------------------------+
-"| # | プロジェクト固有の設定を可能にする|
-"+===|===================================+
-
+"}}}
+"+---+--------------------------------------+
+"| # | "プロジェクト固有の設定を可能にする" |
+"+===+======================================+
 "{{{
 " .vimrc.localをプロジェクトディレクトリに作成することで使用可能
 augroup vimrc-local
@@ -769,5 +736,26 @@ function! s:vimrc_local(loc)
         source `=i`
     endfor
 endfunction
+"}}}
+"+---+-----------------------------------------+
+"| # | "ノーマルモード移動時にIMEをオフにする" |
+"+===+=========================================+
+"{{{
+" Mac用
+if has('mac')
+    let g:imeoff = 'osascript -e "tell application \"System Events\" to key code 102"'
+    augroup MyIMEGroup
+        autocmd!
+        autocmd InsertLeave * :call system(g:imeoff)
+    augroup END
+endif
+
+" Linux用 fcitx
+if has('linux')
+    function! ImInActivate()
+        call system('fcitx-remote -c')
+    endfunction
+    inoremap <silent> <C-[> <ESC>:call ImInActivate()<CR>
+endif
 "}}}
 

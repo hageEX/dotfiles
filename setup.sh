@@ -1,35 +1,40 @@
 #!/bin/sh
-#
+
 
 if [ ! -f ~/.vim/autoload/plug.vim ] ; then
     echo 'Install... [vim-plug]'
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     if [ $? = 0 ] ; then
-        echo '\nInstall... [vim-plug]'
+        echo '\n[+]Install... vim-plug'
     else
-        echo 'requires curl'
+        printf '[*]\e[33mWarning not install curl. \e[0m\n'
     fi
 fi
 
 if [ ! -f ~/.vim/colors/despacio.vim ] ; then
-    echo 'Install... [despacio.vim]'
+    echo '[+]Install... despacio.vim'
     curl -fLo ~/.vim/colors/despacio.vim --create-dirs \
         https://raw.githubusercontent.com/AlessandroYorba/Despacio/master/colors/despacio.vim
     if [ $? = 0 ] ; then
         echo '\nInstall... [despacio.vim]'
     else
-        echo 'requires curl'
+        printf '[*]\e[33mWarning not install curl. \e[0m\n'
     fi
 fi
 
-echo '\nAdd... [.vimrc]'
-echo 'source ~/dotfiles/dot.vimrc' >> ~/.vimrc
-echo 'Add... [.zshrc]\n'
-echo 'source ~/dotfiles/dot.zshrc' >> ~/.zshrc
 
-echo '__Finally__'
-echo '$ vim'
-echo ':PlugInstall\n'
-
-echo 'Welcome to vim!'
+read -p "Add link to vimrc & zshrc [y/N] " keyborad
+case $keyborad in
+    [Yy] )
+        echo '\n[+]Add  >> .vimrc'
+        echo 'source ~/dotfiles/dot.vimrc' >> ~/.vimrc
+        echo '[+]Add  >> .zshrc'
+        echo 'source ~/dotfiles/dot.zshrc' >> ~/.zshrc
+        echo 'vim'
+        echo ':PlugInstall\n'
+        ;;
+    * )
+        ;;
+esac
+echo 'Complete.'
