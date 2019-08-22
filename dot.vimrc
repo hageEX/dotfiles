@@ -358,15 +358,15 @@ let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 
 " 左側に使用されるセパレータ
-let g:airline_left_sep = ''
+let g:airline_left_sep = '' "
 let g:airline_left_alt_sep = ''
 " 右側に使用されるセパレータ
-let g:airline_right_sep = ''
+let g:airline_right_sep = '' "
 let g:airline_right_alt_sep = ''
 let g:airline_symbols.crypt = ''		"暗号化されたファイル🔒
 let g:airline_symbols.linenr = ''		"行 ¶
 let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.branch = '⭠'		"gitブランチ
+let g:airline_symbols.branch = '' 		"gitブランチ ⭠
 let g:airline_symbols.notexists = '∄'		"gitで管理されていない場合
 let g:airline_section_x =
             \airline#section#create(['filetype'])
@@ -392,7 +392,7 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline_extensions = ['branch', 'tabline']
 let g:airline#extensions#branch#vcs_priority = ["git", "mercurial"]
 let g:airline#extensions#default#section_truncate_width = {
-            \ 'b': 79,
+            \ 'b': 70,
             \ 'y': 88,
             \ 'z': 20,
             \ }
