@@ -24,8 +24,6 @@ au FileType vim setlocal foldmethod=marker
 
 call plug#begin()
 " {{{
-" 表作成を補助する
-Plug 'dhruvasagar/vim-table-mode', {'on': 'TableModeEnableToggle'}
 " ツリー構造を表示する
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 " statuslineを強化
@@ -49,7 +47,7 @@ Plug 'ryanoasis/vim-devicons'  ", {'on': 'NERDTreeToggle'}
 " 暗黒の力で補完, ファイルエクスプローラー
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-    Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
+"    Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
 else
     Plug 'Shougo/deoplete.nvim'
     Plug 'Shougo/defx.nvim'
@@ -58,15 +56,8 @@ else
 endif
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/vimshell.vim'
 " 非同期実行を可能にする
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-" 曖昧検索
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
-"テスト実行
-Plug 'janko-m/vim-test'
-Plug 'tpope/vim-dispatch'
 " コードチェック
 Plug 'w0rp/ale'
 " 計り知れない暗黒の力
@@ -78,14 +69,14 @@ Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
 " カーソルの移動を快適にする
 Plug 'easymotion/vim-easymotion'
 " vim-lsp
-"Plug 'prabirshrestha/async.vim', {'for': ['python', 'rust', 'javascript']}
-"Plug 'prabirshrestha/vim-lsp', {'for': ['python', 'rust', 'javascript']}
-"Plug 'prabirshrestha/asyncomplete.vim', {'for': ['python', 'rust', 'javascript']}
-"Plug 'prabirshrestha/asyncomplete-lsp.vim', {'for': ['python', 'rust', 'javascript']}
-"" TypeScript-lsp
-"Plug 'ryanolsonx/vim-lsp-typescript'
-"" JavaScript-lsp
-"Plug 'ryanolsonx/vim-lsp-javascript'
+Plug 'prabirshrestha/async.vim', {'for': ['python', 'rust', 'javascript']}
+Plug 'prabirshrestha/vim-lsp', {'for': ['python', 'rust', 'javascript']}
+Plug 'prabirshrestha/asyncomplete.vim', {'for': ['python', 'rust', 'javascript']}
+Plug 'prabirshrestha/asyncomplete-lsp.vim', {'for': ['python', 'rust', 'javascript']}
+" TypeScript-lsp
+Plug 'ryanolsonx/vim-lsp-typescript'
+" JavaScript-lsp
+Plug 'ryanolsonx/vim-lsp-javascript'
 " (M)マークダウンをサポート
 Plug 'plasticboy/vim-markdown', {'for': ['markdown', 'html', 'js']}
 " (M)マークダウンをプレビュー表示
@@ -94,12 +85,13 @@ Plug 'kannokanno/previm', {'for': ['markdown', 'html', 'js']}
 Plug 'tyru/open-browser.vim'
 " vimのオートセーブを可能にする
 Plug 'vim-scripts/vim-auto-save', {'for': ['markdown', 'html', 'js']}
-" リアルタイム同時置換を可能にする
-"Plug 'terryma/vim-multiple-cursors'
 " コロンの位置を揃えるなど
 Plug 'junegunn/vim-easy-align'
 " 文字列マーキング機能
 Plug 't9md/vim-quickhl'
+" マルチカーソル
+Plug 'terryma/vim-multiple-cursors'
+
 
 "}}}
 call plug#end()
@@ -108,6 +100,21 @@ call plug#end()
 "| # | "Plugin Setting" |
 "+===+==================+
 
+"+------------------------+
+"| "vim-multiple-cursors" |
+"+------------------------+
+"{{{
+let g:multi_cursor_use_default_mapping=0
+
+let g:multi_cursor_start_word_key      = '<C-k>'
+let g:multi_cursor_select_all_word_key = '<C-l>'
+" let g:multi_cursor_start_key           = 'g<C-n>'
+" let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-j>'
+let g:multi_cursor_prev_key            = '<C-k>'
+let g:multi_cursor_skip_key            = '<Space>'
+let g:multi_cursor_quit_key            = '<C-c>'
+"}}}
 "+---------------+
 "| "vim-quickhl" |
 "+---------------+
@@ -123,22 +130,6 @@ xmap <Space>L <Plug>(quickhl-manual-reset)
 "{{{
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
-"}}}
-"+------------+
-"| "VimShell" |
-"+------------+
-"{{{
-nnoremap <Space>s :VimShellPop<CR>
-let g:vimshell_popup_command = 'vs'
-
-" vimshellの状態に関わらず、<C-w>によって画面移動を可能にする
-autocmd FileType vimshell call s:vimshell_settings()
-function! s:vimshell_settings()
-    inoremap <buffer><C-w> <Esc><C-w>
-endfunction
-
-let g:vimshell_user_prompt = '"[" .$USER ."@VimShell]-[" .fnamemodify(getcwd(), ":~")."]"'
-let g:vimshell_prompt = " --> "
 "}}}
 "+-------+
 "| "ale" |
@@ -193,8 +184,8 @@ vmap gx <Plug>(openbrowser-smart-search)
 let g:lsp_signs_enabled = 1
 let g:lsp_signs_error = {'text': '⌦'}
 let g:lsp_signs_warning = {'text': '⚠',}
-nmap <silent> J :LspNextError<CR>
-nmap <silent> K :LspPreviousError<CR>
+" nmap <silent> J :LspNextError<CR>
+" nmap <silent> K :LspPreviousError<CR>
 
 " //Python
 if executable('pyls')
@@ -327,14 +318,6 @@ let g:Webdevicons_enable_nerdtree = 1
 let g:Webdevicons_enable_nerdtree_brackets = 1
 let g:WebdeviconsUnicodeGlyphDoubleWidth = 1
 "}}}
-"+-------------+
-"| "TableMode" |
-"+-------------+
-"{{{
-let g:table_mode_corner_corner='+'
-let g:table_mode_header_fillchar='='
-let g:table_mode_corner = '|'
-"}}}
 "+-----------------------+
 "| "winresizer:画面分割" |
 "+-----------------------+
@@ -358,10 +341,10 @@ let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 
 " 左側に使用されるセパレータ
-let g:airline_left_sep = '' "
+let g:airline_left_sep = '' "
 let g:airline_left_alt_sep = ''
 " 右側に使用されるセパレータ
-let g:airline_right_sep = '' "
+let g:airline_right_sep = '' "
 let g:airline_right_alt_sep = ''
 let g:airline_symbols.crypt = ''		"暗号化されたファイル🔒
 let g:airline_symbols.linenr = ''		"行 ¶
@@ -497,51 +480,36 @@ set ttymouse=xterm2
 " カーソルライン
 hi clear cursorline
 " その他
-"hi Comment ctermfg=242                "コメント
-"hi LineNr ctermfg=darkred             "行番号
-hi Normal ctermfg=250                  "文字色
-hi Normal ctermbg=232                  "背景色
+hi Normal ctermfg=250 ctermbg=232
 hi CursorLineNr term=standout ctermfg=109 ctermbg=15
 " 対括弧強調表示
 hi MatchParen ctermbg=21
 " set termguicolors時に反映
-"hi Normal guibg=#262626
-"hi Normal guibg=#262626
-hi Normal guifg=#C6C6C6
-hi CursorLineNr guifg=#262626
+hi Normal guifg=#b8b8a5 "#C6C6C6
+hi CursorLineNr guifg=#262626 guibg=#c6c6c6
 " 行の背景色
 set cursorline
-hi CursorLine guibg=#330033
+hi CursorLine guibg=#424242 "#330033
 " 列の背景色
-set cursorcolumn
-hi CursorColumn guibg=#220000
+" set cursorcolumn
+" hi CursorColumn guibg=#424242 "#220000
 
 hi String gui=bold
 hi Special gui=bold
 hi Conditional gui=bold
 
-" 行番号が振られていない、テキストのない場所の色
+" 行番号の振られていない、テキストのない場所の色
 "hi NonText guibg=#111000
 " 分割の区切りの色
-hi VertSplit guibg=#000111
+hi VertSplit guifg=#0d160c guibg=#0d160c
 
-hi Normal guibg=#0d160c "000111
+hi Normal guibg=#0d160c
 hi LineNr guibg=#262626
-"hi LineNr guifg=#c6c6c6
-
-" 落ち着いた色合いに変更
-"hi Normal guibg=#2e3436
-"hi LineNr guibg=#262626
 hi LineNr guifg=#b3ada5
 
 "hi Number guifg=#cd5c5c
 hi Error guifg=#262626 guibg=red
 hi Todo guifg=#262626 guibg=#DDA0DD
-
-" VimShell
-hi VimShellUserPrompt guifg=cyan
-hi VimShellPrompt guifg=red
-hi VimShellDirectory guifg=#6699cc
 
 " win風フォルダ
 hi NerdTreeFlags guifg=#999900 "cccc00
@@ -549,7 +517,12 @@ hi NerdTreeFlags guifg=#999900 "cccc00
 hi NerdTreeFlags guifg=#59a8d0
 hi Directory guifg=#708090
 hi NerdTreeClosable guifg=magenta
-"hi NerdTreeOpenable guifg=blue
+
+" IntellJ風
+" hi Normal guifg=#94b0c0 guibg=#2b2b2b
+" hi Number guifg=#4f8cb9
+" hi String guifg=#6a8758
+" hi VertSplit guifg=#2b2b2b guibg=#2b2b2b
 "}}}
 "+---+----------+
 "| # | "Indent" |
@@ -756,6 +729,11 @@ if has('linux')
         call system('fcitx-remote -c')
     endfunction
     inoremap <silent> <C-[> <ESC>:call ImInActivate()<CR>
+    inoremap <silent> <C-c> <ESC>:call ImInActivate()<CR>
+    inoremap <silent> <ESC> <ESC>:call ImInActivate()<CR>
 endif
+
+" 共通 ノーマルモードでIMEが有効な場合でも、い <Enter>でインサートモードに入る
+nnoremap い i
 "}}}
 
