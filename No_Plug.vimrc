@@ -2,8 +2,20 @@
 " Development build (https://github.com/AlessandroYorba/De
 " spacio/tree/nightly)
 
-"Color scheme
-"[despacio]{{{
+" 折りたたみ機能を有効にする
+au FileType vim setlocal foldmethod=marker
+" Note:[-折りたたみの有効無効切り替え-]
+" zi 全てを表示 非表示
+" za 個別に表示 非表示
+
+" 範囲選択の始まりと終わりに折りたたみマーカーを追加する
+" zf
+
+"+---+------------+
+"| "Color scheme" |
+"+===+============+
+"[despacio]
+"{{{
 set background=dark
 
 highlight clear
@@ -93,11 +105,10 @@ if 1
 	highlight SpecialKey guifg=#444444 guibg=NONE gui=NONE ctermfg=238 ctermbg=NONE cterm=NONE
 endif
 "}}}
-
-"+---+-------------+
-"| # | Status line |
-"+===+=============+
-" hi statusline guibg=#
+"+---+---------------+
+"| # | "Status line" |
+"+===+===============+
+"{{{
 hi statusline guifg=#00bb00
 
 function! SetStatusLine()
@@ -117,81 +128,98 @@ function! SetStatusLine()
   return '%' . c . '* ' . mode_name . ' %* %<%F %m%h%=%w%r %18(〈 %{toupper(&ft)} 〈 %{toupper(&enc)}  ⏣  [%l/%L]%)'
 endfunction
 
-" return '%' . c . '* ' . mode_name . ' %* %<%F%m%h%=%w%r %18([%{toupper(&ft)}][%l/%L]%)'
-
-hi User1 gui=bold guibg=darkgreen guifg=gray " Insert Mode
-hi User2 gui=bold guibg=blue guifg=gray      " Normal Mode
-hi User3 gui=bold guibg=coral guifg=gray     " Replace Mode
+hi User1 gui=bold guibg=green guifg=black    " Insert Mode
+hi User2 gui=bold guibg=cyan guifg=black     " Normal Mode
+hi User3 gui=bold guibg=coral guifg=black    " Replace Mode
 hi User4 gui=bold guibg=orange guifg=black   " Visual Mode
 
 set statusline=%!SetStatusLine()
-
-" set statusline=\ \%<%F\ %m%r\%h%w
-" set statusline+=%{'〉\ \ \ \'.(&fenc!=''?&fenc:&enc).'\ \ 〉\ \'.&fileformat.'\ \ \〉'}
-" set statusline+=%=%l/%L,%c%V%8P
-" 〈
-
-"+---+-----------+
-"| # | Set Basic |
-"+===+===========+
 set laststatus=2
-set showcmd
+set showtabline=2
+hi TabLineSel guifg=#00ff00 guibg=#0d380c
+"}}}
+"+---+-------------------+
+"| # | "Default Setting" |
+"+===+===================+
+"{{{
+filetype plugin on
+filetype plugin indent on
 set ruler
 set number
 " 相対行番号を表示する
-set relativenumber
-" <F3>で相対行番号と絶対行番号を切り替える
-nnoremap <F3> :<C-u>setlocal relativenumber!<CR>
+"set relativenumber
+"" <F3>で相対行番号と絶対行番号を切り替える
+"nnoremap <F3> :<C-u>setlocal relativenumber!<CR>
 set title
 set belloff=all
 set virtualedit=onemore
-"set t_Co=256
 set term=xterm-256color
 syntax enable
 set termguicolors
-"+---+--------------+
-"| # | Mouse Enable |
-"+===+==============+
+"}}}
+"+---+----------------+
+"| # | "Mouse Enable" |
+"+===+================+
+"{{{
 set mouse=a
 set ttymouse=xterm2
-"+---|--------+
-"| # | Colors |
-"+===|========+
+"}}}
+"+---+----------+
+"| # | "Colors" |
+"+===+==========+
+"{{{
 " カーソルライン
-set cursorline
 hi clear cursorline
 " その他
-"hi Comment ctermfg=242                "コメント
-"hi LineNr ctermfg=darkred             "行番号
-hi Normal ctermfg=250                  "文字色
-hi Normal ctermbg=232                  "背景色
+hi Normal ctermfg=250 ctermbg=232
 hi CursorLineNr term=standout ctermfg=109 ctermbg=15
 " 対括弧強調表示
 hi MatchParen ctermbg=21
+hi MatchParen guibg=yellow guifg=#000111
 " set termguicolors時に反映
-hi Normal guibg=#000111                "背景色
-hi Normal guifg=#C6C6C6
-hi CursorLineNr guifg=#6b8e23
+hi Normal guifg=#b8b8a5 "#C6C6C6
+hi CursorLineNr guifg=#262626 guibg=#c6c6c6
 " 行の背景色
 set cursorline
-hi CursorLine guibg=#330033
-" 列の背景色
-set cursorcolumn
-hi CursorColumn guibg=#220000
-"+---+--------+
-"| # | Indent |
-"+===+========+
+hi CursorLine guibg=#424242 "#330033
+
+hi String gui=bold
+hi Special gui=bold
+hi Conditional gui=bold
+
+" 分割の区切りの色
+hi VertSplit guifg=#0d160c guibg=#0d160c
+
+hi Normal guibg=#0d160c
+hi LineNr guibg=#262626
+hi LineNr guifg=#b3ada5
+
+hi Number guifg=#6980c3
+
+" IntellJ風
+" hi Normal guifg=#94b0c0 guibg=#2b2b2b
+" hi Number guifg=#4f8cb9
+" hi String guifg=#6a8758
+" hi VertSplit guifg=#2b2b2b guibg=#2b2b2b
+"}}}
+"+---+----------+
+"| # | "Indent" |
+"+===+==========+
+"{{{
 set expandtab
 set autoindent
 set smartindent
 set shiftwidth=4
 set softtabstop=4
 set tabstop=8
-"+---+-----+
-"| # | etc |
-"+===+=====+
+"}}}
+"+---+-------+
+"| # | "etc" |
+"+===+=======+
+"{{{
+set hidden                             "保存せずにファイルを切り替え可能に
 set directory=/home/SWAP               "swapFileを一箇所に集める
-set history=100                        "履歴の保存件数を指定
+set history=10000                      "履歴の保存件数を指定
 set encoding=utf-8                     "文字コードを指定
 set fileencodings=utf-8,sjis
 set fileformats=unix,dos,mac
@@ -201,11 +229,13 @@ set ambiwidth=double                   "全角記号の表示設定
 set clipboard+=unnamed,autoselect      "クリップボードを有効化
 set backspace=indent,eol,start         "BSを有効化
 
-" MarkDown不可視文字くそ
+" 不可視文字機能をおっふ
 set conceallevel=0
-"+---+------------+
-"| # | Vim search |
-"+===+============+
+"}}}
+"+---+--------------+
+"| # | "Vim search" |
+"+===+==============+
+"{{{
 set hlsearch
 set ignorecase                         "検索時に大文字小文字を区別しない
 set smartcase                          "検索時に大文字を使った時は区別する
@@ -214,24 +244,36 @@ set incsearch                          "検索時に一文字入力毎に検索�
 nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
 "検索時に一般的な正規表現を使用可能する
 nmap / /\v
-"+---+--------------+
-"| # | ちょっと便利 |
-"+===+==============+
-set showmatch matchtime=1              "対応するカッコを一瞬表示
-set whichwrap=b,s,h,l,<,>,[,],~        "カーソルの左右移動で行を移動可能にする
-set wildmenu                           "コマンドモードの補完
-set scrolloff=5                        "スクロール時に上下５行の視界を確保
+"}}}
+"+---+----------------+
+"| # | "ちょっと便利" |
+"+===+================+
+"{{{
+set shortmess-=S                       " 検索時の総マッチ数と現在の位置を表示する
+set showmatch matchtime=1              " 対応するカッコを一瞬表示
+set whichwrap=b,s,h,l,<,>,[,],~        " カーソルの左右移動で行を移動可能にする
+set wildmenu                           " コマンドモードの補完
+set scrolloff=5                        " スクロール時に上下５行の視界を確保
 " 全角スペースを可視化
 hi DoubleByteSpace term=underline ctermbg=245
 match DoubleByteSpace /　/
 " 不可視文字を表示、表示文字を設定
 "set list
-"set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+" 変更用 [ ↲  ]
 set listchars=tab:»-,trail:-,eol:↵,extends:»,precedes:«,nbsp:%
 " 不可視文字を非表示にする
 "set nolist
 " 行末の半角スペースを取り除く
 autocmd BufWritePre * :%s/\s\+$//ge
+" vimgrepの検索結果をquickfixに自動的に送る
+autocmd QuickFixCmdPost *grep* cwindow
+" タイプしたキーを右下に表示する
+set showcmd
+"}}}
+"+---+--------------+
+"| # | "KeyMapping" |
+"+===+==============+
+"{{{
 "+---+---------------------------+
 "| # | Cursor(Insert): mac emacs |
 "+===+===========================+
@@ -239,7 +281,7 @@ inoremap<silent> <C-p> <Up>
 inoremap<silent> <C-n> <Down>
 inoremap<silent> <C-f> <Right>
 inoremap<silent> <C-b> <Left>
-"inoremap<silent> <c-h> <bs>
+inoremap<silent> <c-h> <bs>
 inoremap<silent> <C-d> <Del>
 "+---+---------------------------+
 "| # | Cursor(Normal): mac emacs |
@@ -252,10 +294,10 @@ noremap<silent> <C-b> <Left>
 "+---+---------------------+
 "| # | Cursor(Insert): vim |
 "+===+=====================+
-inoremap<silent> <C-k> <Up>
-inoremap<silent> <C-j> <Down>
-inoremap<silent> <C-l> <Right>
-inoremap<silent> <C-h> <Left>
+"inoremap<silent> <C-k> <Up>
+"inoremap<silent> <C-j> <Down>
+"inoremap<silent> <C-l> <Right>
+"inoremap<silent> <C-h> <Left>
 "+---+---------------------+
 "| # | Cursor(Normal): vim |
 "+===+=====================+
@@ -274,47 +316,102 @@ nnoremap <C-e> $
 "+---+------------------+
 "| # | 保存、終了、選択 |
 "+===+==================+
-"noremap <Space>v <C-v>
 nnoremap <Space>w :w<CR>
 nnoremap <Space>q :q!<CR>
 "+---+------------------------------+
 "| # | インサートからノーマルへ移動 |
 "+===+==============================+
-inoremap<silent> jj <ESC>
+"inoremap<silent> jj <ESC>
 "inoremap<silent> っj <ESC>
 "+---+---------------+
 "| # | Change Buffer |
 "+===+===============+
-noremap <f1> :bprev<CR>
-noremap <f2> :bnext<CR>
+nnoremap H :bprev<CR>
+nnoremap L :bnext<CR>
 noremap <C-left> :bprev<CR>
 noremap <C-right> :bnext<CR>
+" Delete buffer
+nnoremap <Space>d :bd!<CR>
+" New buffer
+nnoremap <Space>t :enew<CR>
 "+---+----------------------+
 "| # | Exモードの再割り当て |
 "+===+======================+
-nnoremap Q gq
-"+---+------------------------------------------+
-"| # | カーソルがあるウインドウ以外を全て閉じる |
-"+===+==========================================+
+nnoremap Q q:
+"+---+----------------------------------+
+"| # | カーソルがあるWindow以外を閉じる |
+"+===+==================================+
 nnoremap <Space>o :only<CR>
 "+---+----------------------+
 "| # | タブの新規作成、移動 |
 "+===+======================+
-nnoremap <Space>t :tabnew<CR>
-nnoremap L gt
-nnoremap H gT
-"+---+------------+
-"| # | 日本語入力 |
-"+===+============+
-"nnoremap い i
-"noremap<silent> <C-i> i
+" bufferがメインでの使用になるため未割り当て
+"nnoremap <Space>  :tabnew<CR>
+nnoremap <f1> gt
+nnoremap <f2> gT
 "+---|-------------------+
 "| # | Visual more ++ -- |
 "+===|===================+
 vnoremap <c-a> <c-a>gv
 vnoremap <c-x> <c-x>gv
+"+---|---------------------------------+
+"| # |  <C-c>に<Esc>の機能を割り当てる |
+"+===|=================================+
+noremap! <C-c> <Esc>
 "+---|--------------------------------+
 "| # | 検索時に検索語句を真ん中に表示 |
 "+===|================================+
 map n nzz
 map N Nzz
+"}}}
+"+---+--------------------------------+
+"| # | "window分割時に新規で作成する" |
+"+===+================================+
+"{{{
+" 通常、無名で作成した場合、カレントファイルのクローンとして作成させる
+nnoremap <C-w>v :vnew<CR>
+nnoremap <C-w>s :new<CR>
+"}}}
+"+---+--------------------------------------+
+"| # | "プロジェクト固有の設定を可能にする" |
+"+===+======================================+
+"{{{
+" .vimrc.localをプロジェクトディレクトリに作成することで使用可能
+augroup vimrc-local
+    autocmd!
+    autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
+augroup END
+
+function! s:vimrc_local(loc)
+    let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
+    for i in reverse(filter(files, 'filereadable(v:val)'))
+        source `=i`
+    endfor
+endfunction
+"}}}
+"+---+-----------------------------------------+
+"| # | "ノーマルモード移動時にIMEをオフにする" |
+"+===+=========================================+
+"{{{
+" Mac用
+if has('mac')
+    let g:imeoff = 'osascript -e "tell application \"System Events\" to key code 102"'
+    augroup MyIMEGroup
+        autocmd!
+        autocmd InsertLeave * :call system(g:imeoff)
+    augroup END
+endif
+
+" Linux用 fcitx
+if has('linux')
+    function! ImInActivate()
+        call system('fcitx-remote -c')
+    endfunction
+    inoremap <silent> <C-[> <ESC>:call ImInActivate()<CR>
+    inoremap <silent> <C-c> <ESC>:call ImInActivate()<CR>
+    inoremap <silent> <ESC> <ESC>:call ImInActivate()<CR>
+endif
+
+" 共通 ノーマルモードでIMEが有効な場合でも、い <Enter>でインサートモードに入る
+nnoremap い i
+"}}}

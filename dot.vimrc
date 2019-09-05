@@ -268,7 +268,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 " デフォルトのキーマッピングを無効に
 let g:EasyMotion_do_mapping = 0
 " f + 1文字 で画面内を検索してジャンプ
-nmap f <plug>(easymotion-s)
+nmap F <plug>(easymotion-s)
 " 検索時、大文字小文字を区別しない
 let g:EasyMotion_smartcase = 1
 "}}}
@@ -484,12 +484,13 @@ hi Normal ctermfg=250 ctermbg=232
 hi CursorLineNr term=standout ctermfg=109 ctermbg=15
 " 対括弧強調表示
 hi MatchParen ctermbg=21
+hi MatchParen guibg=yellow guifg=#000111
 " set termguicolors時に反映
 hi Normal guifg=#b8b8a5 "#C6C6C6
 hi CursorLineNr guifg=#262626 guibg=#c6c6c6
 " 行の背景色
 set cursorline
-hi CursorLine guibg=#424242 "#330033
+hi CursorLine guibg=#333333
 " 列の背景色
 " set cursorcolumn
 " hi CursorColumn guibg=#424242 "#220000
@@ -507,7 +508,7 @@ hi Normal guibg=#0d160c
 hi LineNr guibg=#262626
 hi LineNr guifg=#b3ada5
 
-"hi Number guifg=#cd5c5c
+hi Number guifg=#6980c3
 hi Error guifg=#262626 guibg=red
 hi Todo guifg=#262626 guibg=#DDA0DD
 
@@ -689,7 +690,7 @@ map N Nzz
 "| # | "window分割時に新規で作成する" |
 "+===+================================+
 "{{{
-" 通常、無名で作成した場合、カレントファイルのクローンとして作成させる
+" Memo:通常、<C-w>s, vで作成した場合、カレントファイルのクローンとして作成される
 nnoremap <C-w>v :vnew<CR>
 nnoremap <C-w>s :new<CR>
 "}}}
@@ -737,3 +738,4 @@ endif
 nnoremap い i
 "}}}
 
+au BufRead,BufNewFile *.txt set filetype=txt
