@@ -1,3 +1,4 @@
+" vim: set ft=vim
 " Color scheme from
 " Development build (https://github.com/AlessandroYorba/De
 " spacio/tree/nightly)
@@ -181,11 +182,12 @@ hi Normal guifg=#b8b8a5 "#C6C6C6
 hi CursorLineNr guifg=#262626 guibg=#c6c6c6
 " 行の背景色
 set cursorline
-hi CursorLine guibg=#424242 "#330033
+hi CursorLine guibg=#292929
 
 hi String gui=bold
 hi Special gui=bold
 hi Conditional gui=bold
+hi Number gui=bold
 
 " 分割の区切りの色
 hi VertSplit guifg=#0d160c guibg=#0d160c
@@ -194,7 +196,8 @@ hi Normal guibg=#0d160c
 hi LineNr guibg=#262626
 hi LineNr guifg=#b3ada5
 
-hi Number guifg=#6980c3
+hi Number guifg=#5f8787
+hi String guifg=#6a8758
 
 " IntellJ風
 " hi Normal guifg=#94b0c0 guibg=#2b2b2b
@@ -231,6 +234,8 @@ set backspace=indent,eol,start         "BSを有効化
 
 " 不可視文字機能をおっふ
 set conceallevel=0
+" モードラインを有効化し、上下5行の個別設定を読み込む vim:
+set modeline
 "}}}
 "+---+--------------+
 "| # | "Vim search" |

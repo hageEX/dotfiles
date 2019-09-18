@@ -186,6 +186,7 @@ let g:lsp_signs_error = {'text': '⌦'}
 let g:lsp_signs_warning = {'text': '⚠',}
 " nmap <silent> J :LspNextError<CR>
 " nmap <silent> K :LspPreviousError<CR>
+nmap <silent> <C-h> :LspDefinition<CR>
 
 " //Python
 if executable('pyls')
@@ -490,7 +491,7 @@ hi Normal guifg=#b8b8a5 "#C6C6C6
 hi CursorLineNr guifg=#262626 guibg=#c6c6c6
 " 行の背景色
 set cursorline
-hi CursorLine guibg=#333333
+hi CursorLine guibg=#292929
 " 列の背景色
 " set cursorcolumn
 " hi CursorColumn guibg=#424242 "#220000
@@ -508,9 +509,11 @@ hi Normal guibg=#0d160c
 hi LineNr guibg=#262626
 hi LineNr guifg=#b3ada5
 
-hi Number guifg=#6980c3
 hi Error guifg=#262626 guibg=red
 hi Todo guifg=#262626 guibg=#DDA0DD
+
+hi Number guifg=#5f8787
+hi String guifg=#6a8758
 
 " win風フォルダ
 hi NerdTreeFlags guifg=#999900 "cccc00
@@ -554,6 +557,8 @@ set backspace=indent,eol,start         "BSを有効化
 
 " 不可視文字機能をおっふ
 set conceallevel=0
+" モードラインを有効化し、上下5行の個別設定を読み込む vim:
+set modeline
 "}}}
 "+---+--------------+
 "| # | "Vim search" |
@@ -624,10 +629,10 @@ noremap<silent> <C-b> <Left>
 "+===+=====================+
 nnoremap j gj
 nnoremap k gk
-noremap<silent> <C-k> <Up>
-noremap<silent> <C-j> <Down>
-noremap<silent> <C-l> <Right>
-noremap<silent> <C-h> <Left>
+"noremap<silent> <C-k> <Up>
+"noremap<silent> <C-j> <Down>
+"noremap<silent> <C-l> <Right>
+"noremap<silent> <C-h> <Left>
 "+---+------------------+
 "| # | 行頭、行末に移動 |
 "+===+==================+

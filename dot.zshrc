@@ -7,9 +7,8 @@
 #|                                     |
 #=======================================
 # Nerd-fonts = 16pt Literation Mono Nerd Font Complete.
-# vim: ft=zsh
 
-#おまじない
+# おまじない
 autoload -Uz compinit && compinit
 autoload -Uz color
 autoload -Uz vcs_info
@@ -122,40 +121,40 @@ ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=cyan
 ZSH_HIGHLIGHT_STYLES[assign]=none
 
 ######基本設定######
-#補完候補を一覧表示する
+# 補完候補を一覧表示する
 setopt auto_list
-#TABで候補を選択する
+# TABで候補を選択する
 setopt auto_menu
-#補完候補をTABや矢印で選択できるようにする
+# 補完候補をTABや矢印で選択できるようにする
 zstyle ':completion:*:default' menu select=1
-#補完候補の配色
+# 補完候補の配色
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-#cd時、PATHを直打ちで移動可能に。
+# cd時、PATHを直打ちで移動可能に。
 setopt auto_cd
-#移動したディレクトリを記録しておく
+# 移動したディレクトリを記録しておく
 setopt auto_pushd
-#補完候補表示時などにビープ音をならないように設定
+# 補完候補表示時などにビープ音をならないように設定
 setopt nolistbeep
-#打ち間違いをに対応
+# 打ち間違いをに対応
 setopt correct
-#historyファイルを作って、そこから過去のコマンドも実行可能に
+# historyファイルを作って、そこから過去のコマンドも実行可能に
 export LANG=ja_JP.UTF-8
 export HISTFILE=$HOME/.zsh-history
 export HISTSIZE=1000
 export SAVEHIST=10000
-#重複を記録しない
+# 重複を記録しない
 setopt hist_ignore_dups
 setopt hist_ignore_all_dups
 setopt hist_save_no_dups
-#既に作成された重複を履歴から取り除く
+# 既に作成された重複を履歴から取り除く
 sort -t ";" -k 2 -u ~/.zsh-history | sort -o ~/.zsh-history
-#開始と終了を記録
+# 開始と終了を記録
 setopt EXTENDED_HISTORY
-#複数のターミナル間で履歴を共有する
+# 複数のターミナル間で履歴を共有する
 setopt share_history
 setopt no_beep
-#補完関連
+# 補完関連
 setopt auto_list
 setopt auto_menu
 # / を自動的に付加し、次の補完に備える
@@ -286,7 +285,8 @@ net(){
     esac
 }
 
-#Homebrewの情報収集を停止させる
+# Homebrewの情報収集を停止させる
 export HOMEBREW_NO_ANALYTICS=1
-#Terminalから行う場合は以下のコマンド
-#brew analytics off
+# Terminalから行う場合は以下のコマンド
+# brew analytics off
+# vim: ft=zsh
