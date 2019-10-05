@@ -175,6 +175,11 @@ nnoremap <silent> M :PrevimOpen<CR>
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
+" サーチエンジンを指定する
+"let g:openbrowser_default_search = 'duckduckgo'
+"let g:openbrowser_search_engines = {
+"            \       'duckduckgo': 'http://duckduckgo.com/?q={query}',
+"            \}
 "}}}
 "+-----------+
 "| "vim-lsp" |
@@ -294,7 +299,7 @@ nnoremap \r :write<CR>:QuickRun -mode n<CR>
 nnoremap <F5> :write<CR>:QuickRun -mode n<CR>
 xnoremap \r :<C-U>write<CR>gv:QuickRun -mode v<CR>
 let g:quickrun_config={'*': {'split': 'vertical'}}
-" 左右分割する場合は、下の/buffer/splitの行をコメントアウト
+" 左右分割する場合は、下の/buffer/splitの行をコメントアウト、もしくはsplitをvsplitに変更
 let g:quickrun_config._={ 'runner':'job',
             \       "runner/job/updatetime" : 10,
             \       "outputter/buffer/close_on_empty" : 1,
